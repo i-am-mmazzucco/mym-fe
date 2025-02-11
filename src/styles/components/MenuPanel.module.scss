@@ -1,0 +1,137 @@
+.header {
+	height: 5.4rem;
+	border-bottom: .1rem solid var(--c-grey);
+	background: var(--c-white-100);
+	display: flex;
+	justify-content: space-between;
+	padding-left: 4.2rem;
+	padding-right: 4.2rem;
+	position: fixed;
+	right: 0;
+	top: 0;
+	left: 22rem;
+
+	.headerLeft {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		p {
+			color: var(--c-black);
+			font-family: Montserrat;
+			font-size: 1.87rem;
+			font-weight: 500;
+			line-height: 1.7599rem;
+			letter-spacing: -0.0211rem;
+			margin-left: .273rem;
+		}
+	}
+
+	.headerRight {
+		display: flex;
+		width: 25rem;
+		justify-content: space-between;
+		align-items: center;
+		gap: 3rem;
+
+		.toggleMode {
+			display: flex;
+			align-items: center;
+			border-radius: 108.25rem;
+			border: 0.183rem solid var(--c-grey);
+
+			div {
+				display: flex;
+				width: 2.6rem;
+				height: 2.6rem;
+				padding: 0.43rem;
+				justify-content: center;
+				align-items: center;
+
+				&:first-child {
+					border-radius: 4.1167rem;
+					border: .1rem solid var(--c-grey);
+				}
+			}
+		}
+
+		.avatar {
+			display: flex;
+			align-items: center;
+			gap: .6rem;
+			border: none;
+			background-color: transparent;
+			cursor: pointer;
+
+			img {
+				width: 3.2rem;
+				height: 3.2rem;
+				border-radius: 7rem;
+				background: lightgray 50% / cover no-repeat;
+			}
+
+			p {
+				color: var(--c-black);
+				font-family: Inter;
+				font-size: 1rem;
+				font-weight: 500;
+				letter-spacing: -.027rem;
+			}
+		}
+	}
+}
+
+.sideBar {
+	width: 22rem;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	border-right: .1rem solid var(--c-grey);
+	background: var(--c-white-100);
+	position: fixed;
+	left: 0;
+	top: 0;
+		
+	div {
+		margin: 2.4rem 1rem .8rem 1rem;
+	}
+
+	nav {
+		width: 100%;
+
+		ul {
+			display: flex;
+			flex-direction: column;
+			padding: 1rem .8rem;
+			gap: .8rem;
+			align-self: stretch;
+			border-radius: .8rem;
+			text-decoration: none;
+			list-style-type: none;
+
+			li {
+				text-decoration: none;
+				height: 4rem;
+				display: flex;
+				align-items: center;
+				border-radius: .8rem;
+				
+				a {
+					text-decoration: none;
+					color: var(--c-black);
+					font-size: 1.8rem;
+					font-weight: 500;
+				}
+
+				svg {
+					margin: .8rem;
+				}
+
+				&:first-child {
+					background: var(--c-white-200);
+				}
+			}
+		}
+	}
+}

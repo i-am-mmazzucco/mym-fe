@@ -1,12 +1,10 @@
-import ClientTable from "@/components/ClientTable";
-import Sidebar from "@/components/SideBar";
+import Sidebar from "@/components/MenuPanel";
 
 const ClientsPage = () => (
   <div className="container">
     <Sidebar />
     <main>
       <h1>Clientes</h1>
-      <ClientTable />
     </main>
   </div>
 );

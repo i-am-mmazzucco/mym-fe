@@ -1,5 +1,5 @@
-import Sidebar from "@/components/SideBar";
-import "@/styles/globals.css";
+import Sidebar from "@/components/MenuPanel";
+import "@/styles/globals.scss";
 
 export default function RootLayout({
   children,
@@ -10,7 +10,7 @@ export default function RootLayout({
     <html lang="es">
       <body>
         <div className="layout">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <main>{children}</main>
         </div>
       </body>

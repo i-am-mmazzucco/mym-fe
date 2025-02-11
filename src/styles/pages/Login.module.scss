@@ -1,0 +1,209 @@
+.container {
+  display: flex;
+  height: 100vh;
+	width: 100%;
+	position: relative;
+
+	.topBar {
+		position: absolute;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		margin-top: 1.5rem;
+
+		div:nth-child(1) {
+			margin-left: 12rem;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+
+			p {
+				color: var(--c-black);
+				font-family: Montserrat;
+				font-size: 2.7521rem;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 2.5801rem;
+				letter-spacing: -0.031rem;
+				margin: 0rem;
+				margin-left: 1.376rem;
+			}
+		}
+		
+		div:nth-child(2) {
+			margin-right: 12rem;
+			display: flex;
+			align-items: center;
+			gap: 1.4rem;
+
+			button:nth-child(1) {
+				display: flex;
+				padding: 1.2rem 1.6rem;
+				justify-content: center;
+				align-items: center;
+				gap: 1rem;
+				border-radius: 0.8rem;
+				border: 0.1rem solid var(--c-grey);
+				color: var(--c-black-200);
+				font-size: 1.4rem;
+				font-weight: 500;
+				background-color: var(--c-white);
+			}
+
+			button:nth-child(2) {
+				color: var(--c-grey-100);
+				font-size: 1.4rem;
+				font-weight: 400;
+				line-height: 2.5801rem;
+				letter-spacing: -0.031rem;
+				background-color: var(--c-white);
+				border: none;
+			}
+		}
+	}
+
+	.containerLogin {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		.loginBox {
+			width: 32rem;
+			height: 38rem;
+			border-radius: 1.8rem;
+			border: 0.1rem solid var(--c-grey);
+			background-color: var(--c-white);
+			box-shadow: 0rem .4rem .8rem -.4rem rgba(0, 0, 0, 0.05);
+			padding: 3.2rem;
+			display: flex;
+			flex-direction: column;
+			gap: 2.8rem;
+
+			.topDescription {
+				h1 {
+					width: 100%;
+					text-align: center;
+					line-height: 3.94rem;
+					font-weight: 300;
+					letter-spacing: -0.0473rem;
+					font-size: 3.2rem;
+					color: var(--c-black-100);
+					margin: 0rem;
+				}
+	
+				p {
+					width: 100%;
+					text-align: center;
+					font-weight: 500;
+					font-size: 1.8rem;
+					line-height: 3.94rem;
+					letter-spacing: -0.0473rem;
+					color: var(--c-grey-100);
+					margin: 0rem;
+				}
+			}
+
+			.middleForm {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 1.8rem;
+				align-self: stretch;
+
+				input {
+					display: flex;
+					align-items: center;
+					align-self: stretch;
+					border-radius: .8rem;
+					border: .1rem solid var(--c-grey);
+					padding: 1rem 1.4rem;
+				}
+
+				button {
+					display: flex;
+					padding: 1rem;
+					justify-content: center;
+					align-items: center;
+					gap: 1rem;
+					align-self: stretch;
+					border-radius: .8rem;
+					background: var(--c-black);
+					color: var(--c-white);
+				}
+			}
+
+			.divider {
+				display: flex;
+				align-items: center;
+				gap: 24px;
+				align-self: stretch;
+				align-content: space-between;
+				
+				div:nth-child(1), div:nth-child(3) {
+					border: .1rem solid var(--c-grey);
+					width: 40%;
+				}
+
+				div:nth-child(2) {
+					color: var(--c-black);
+					text-align: center;
+					font-size: 1.4rem;
+					font-style: normal;
+					font-weight: 400;
+					line-height: normal;
+				}
+			}
+
+			.googleContainer {
+				display: flex;
+				align-items: center;
+				border-radius: .8rem;
+				border: .1rem solid var(--c-grey);
+				width: 100%;
+				background-color: var(--c-white);
+				
+				svg {
+					margin: 1.2rem 1rem 1.2rem 1.4rem;
+				}
+
+				p {
+					width: 100%;
+					color: var(--c-grey-100);
+					text-align: center;
+					font-size: 1.4rem;
+					font-style: normal;
+					font-weight: 400;
+					line-height: normal;
+				}
+			}
+		}
+	}
+
+	.footerBar {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+		height: 4.5rem;
+		border-top: 0.1rem solid var(--c-grey);
+
+		p, a {
+			color: var(--c-black);
+			text-align: center;
+			font-family: Inter;
+			font-size: 1.4rem;
+			font-style: normal;
+			font-weight: 300;
+			line-height: 3.4421rem;
+			letter-spacing: -0.0473rem;
+			text-decoration: none;			
+		}
+	}
+}

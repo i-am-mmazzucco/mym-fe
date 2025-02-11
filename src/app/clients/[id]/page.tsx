@@ -1,6 +1,6 @@
 // pages/clients/[id].tsx
 
-import Sidebar from "@/components/SideBar";
+import Sidebar from "@/components/MenuPanel";
 
 const ClientDetailPage = () => (
   <div className="container">
