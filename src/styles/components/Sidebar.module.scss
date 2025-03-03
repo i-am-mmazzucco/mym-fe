@@ -1,0 +1,53 @@
+.sideBar {
+	width: 13.1%;;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	border-right: .1rem solid var(--c-grey);
+	background: var(--c-white-100);
+	position: fixed;
+	left: 0;
+	top: 0;
+		
+	div {
+		margin: 2.4rem 1rem .8rem 1rem;
+	}
+
+	nav {
+		width: 100%;
+
+		ul {
+			display: flex;
+			flex-direction: column;
+			padding: 1rem .8rem;
+			gap: .8rem;
+			align-self: stretch;
+			border-radius: .8rem;
+			text-decoration: none;
+			list-style-type: none;
+
+			li {
+				text-decoration: none;
+				height: 4rem;
+				display: flex;
+				align-items: center;
+				border-radius: .8rem;
+				
+				a {
+					text-decoration: none;
+					color: var(--c-black);
+					font-size: 1.8rem;
+					font-weight: 500;
+				}
+
+				svg {
+					margin: .8rem;
+				}
+
+				&:first-child {
+					background: var(--c-white-200);
+				}
+			}
+		}
+	}
+}

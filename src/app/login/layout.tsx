@@ -1,5 +1,3 @@
-import Container from "@/components/Container";
-import MenuPanel from "@/components/MenuPanel";
 import "@/styles/globals.scss";
 
 export default function RootLayout({
@@ -10,9 +8,8 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <MenuPanel />
         <div className="layout">
-          <Container>{children}</Container>
+          {children}
         </div>
       </body>
     </html>

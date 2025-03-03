@@ -1,0 +1,22 @@
+.homeContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 3.2rem;
+	width: 100%;
+
+	.title {
+		width: 100%;
+		color: var(--c-black);
+		font-size: 1.8rem;
+		font-weight: 600;
+		line-height: 2.25rem;
+		margin: 0;
+	}
+
+	.bottomContainer {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+		gap: 2.4rem;
+	}
+}

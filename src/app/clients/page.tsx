@@ -1,10 +1,7 @@
-import Sidebar from "@/components/MenuPanel";
-
 const ClientsPage = () => (
   <div className="container">
-    <Sidebar />
     <main>
-      <h1>Clientes</h1>
+      <h1>Inicio Clientes</h1>
     </main>
   </div>
 );
