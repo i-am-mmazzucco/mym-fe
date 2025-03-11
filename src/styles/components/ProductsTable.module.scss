@@ -1,4 +1,4 @@
-.orderContainer {
+.productsTableContainer {
 	border-radius: 1.8rem;
 	border: 0.1rem solid var(--c-gray);
 	background: var(--c-white);
@@ -10,26 +10,53 @@
 	align-self: stretch;
 	padding: 2.2rem 2.2rem 0rem 2.2rem;
 
-	p {
-		color: var(--c-black-100);
-		font-size: 2rem;
-		font-weight: 700;
-		line-height: 2.25rem;
-		margin: 0;
+	header {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+
+		p {
+			color: var(--c-black-100);
+			font-size: 2rem;
+			font-weight: 700;
+			line-height: 2.25rem;
+		}
+
+		button {
+			display: flex;
+			gap: .5rem;
+			padding: 1.4rem;
+			justify-content: center;
+			align-items: center;
+			gap: .5rem;
+			border-radius: .8rem;
+			background: var(--c-black);
+			height: 4.4rem;
+			width: 16rem;
+			cursor: pointer;
+
+			p {
+				color: var(--c-white);
+				font-size: 1.4rem;
+				font-weight: 600;
+			}
+		}
 	}
 
-	.orderTable {
+	.products {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		gap: 2.2rem;
-		width: 100%;
-
+		
 		.filters {
 			display: flex;
 			gap: 1.8rem;
+			height: 4.6rem;
 
 			label {
 				position: relative;
+				height: 100%;
 			}
 			
 			label:before {
@@ -39,6 +66,7 @@
 				top: 0;
 				bottom: 0;
 				width: 2rem;
+				height: 100%;
 				background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%3E%0A%20%20%3Cg%20clip-path%3D%22url(%23clip0_203_141)%22%3E%0A%20%20%20%20%3Cpath%20d%3D%22M18.125%2017.2412L13.4049%2012.5212C14.5391%2011.1595%2015.1047%209.413%2014.984%207.64498C14.8633%205.87695%2014.0656%204.22351%2012.7569%203.02863C11.4482%201.83375%209.72919%201.18942%207.9575%201.22968C6.18581%201.26994%204.49785%201.99169%203.24476%203.24479C1.99166%204.49788%201.26991%206.18584%201.22965%207.95753C1.18939%209.72922%201.83372%2011.4482%203.0286%2012.7569C4.22348%2014.0657%205.87692%2014.8633%207.64494%2014.984C9.41297%2015.1047%2011.1595%2014.5392%2012.5211%2013.405L17.2412%2018.125L18.125%2017.2412ZM2.5%208.12503C2.5%207.01251%202.8299%205.92497%203.44798%204.99994C4.06606%204.07492%204.94457%203.35395%205.9724%202.9282C7.00024%202.50246%208.13124%202.39107%209.22238%202.60811C10.3135%202.82515%2011.3158%203.36088%2012.1025%204.14755C12.8891%204.93422%2013.4249%205.9365%2013.6419%207.02764C13.859%208.11879%2013.7476%209.24979%2013.3218%2010.2776C12.8961%2011.3055%2012.1751%2012.184%2011.2501%2012.802C10.3251%2013.4201%209.23752%2013.75%208.125%2013.75C6.63366%2013.7484%205.20388%2013.1552%204.14935%2012.1007C3.09481%2011.0461%202.50165%209.61636%202.5%208.12503Z%22%20fill%3D%22%23A8A7A5%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3CclipPath%20id%3D%22clip0_203_141%22%3E%0A%20%20%20%20%20%20%3Crect%20width%3D%2220%22%20height%3D%2220%22%20fill%3D%22white%22%2F%3E%0A%20%20%20%20%3C%2FclipPath%3E%0A%20%20%3C%2Fdefs%3E%0A%3C%2Fsvg%3E") center / contain no-repeat;
 			}
 			
@@ -47,6 +75,8 @@
 				width: 44.5rem;
 				border-radius: .8rem;
 				border: .1rem solid var(--c-grey);
+				height: 100%;
+				box-sizing: border-box;
 			}
 
 			input::placeholder {
@@ -61,6 +91,7 @@
 				border-radius: .8rem;
 				background: transparent;
 				padding: 0 1.4rem;
+				height: 100%;
 
 				p {
 					color: var(--c-grey-100);
@@ -92,8 +123,8 @@
 						padding: .8rem 0rem;
 						vertical-align: middle;
 						text-align: left;
-
-						&:nth-child(2) {
+						
+						&:last-child {
 							display: flex;
 							align-items: center;
 							align-content: center;
@@ -116,36 +147,29 @@
 						font-weight: 400;
 						padding: 1.4rem 0rem;
 
-						&:last-child {
-							color: var(--c-black-200);
-							font-size: 1.4rem;
-							font-weight: 400;
-							border-radius: .8rem;
-							border: .1rem solid var(--c-grey);
-							display: flex;
-							justify-content: center;
-							margin: .8rem 0rem;
-						}
-
 						p {
 							width: max-content;
+						}
 
-							&.buttonAssigned {
+						&:last-child {
+							.yes {
 								color: rgba(40, 158, 22,  1);
 								font-size: 1.2rem;
 								font-weight: 600;
 								border-radius: .4rem;
 								background-color: rgba(40, 158, 22,  .1);
 								padding: .5rem .8rem;
+								border: none;
 							}
-	
-							&.buttonNotAssigned {
+
+							.no {
 								color: rgba(201, 47, 84,  1);
 								font-size: 1.2rem;
 								font-weight: 600;
 								border-radius: .4rem;
 								background-color: rgba(201, 47, 84,  .1);
 								padding: .5rem .8rem;
+								border: none;
 							}
 						}
 					}
