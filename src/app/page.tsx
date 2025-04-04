@@ -1,8 +1,8 @@
 "use client";
-import HomeEmployeeTable from '@/components/HomeEmployeeTable';
-import HomeOrderTable from '@/components/HomeOrderTable';
-import HomeSalesTable from '@/components/HomeSalesTable';
-import styles from '@/styles/pages/Home.module.scss';
+import HomeEmployeeTable from '@/components/home/HomeEmployeeTable';
+import HomeOrderTable from '@/components/home/HomeOrderTable';
+import HomeSalesTable from '@/components/home/HomeSalesTable';
+import styles from '@/styles/pages/home/Home.module.scss';
 
 export default function Home() {
   return (

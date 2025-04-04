@@ -1,5 +1,5 @@
 
-import styles from '@/styles/components/HomeEmployeeTable.module.scss';
+import styles from '@/styles/components/home/HomeEmployeeTable.module.scss';
 import Image from 'next/image';
 
 export default function HomeEmployeeTable() {

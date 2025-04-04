@@ -1,5 +1,5 @@
 
-import styles from '@/styles/components/HomeSalesTable.module.scss';
+import styles from '@/styles/components/home/HomeSalesTable.module.scss';
 
 export default function HomeSalesTable() {
 	return (

@@ -1,5 +1,5 @@
-import ProductsTable from '@/components/ProductsTable';
-import styles from '@/styles/pages/Products.module.scss';
+import ProductsTable from '@/components/products/ProductsTable';
+import styles from '@/styles/pages/products/Products.module.scss';
 
 export default function Products() {
   return (		

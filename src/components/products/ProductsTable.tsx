@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '@/styles/components/ProductsTable.module.scss';
+import styles from '@/styles/components/products/ProductsTable.module.scss';
 
 export default function ProductsTable() {
 	return (

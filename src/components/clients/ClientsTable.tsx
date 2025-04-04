@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '@/styles/components/ClientsTable.module.scss';
+import styles from '@/styles/components/clients/ClientsTable.module.scss';
 
 export default function ClientsTable() {
 	return (

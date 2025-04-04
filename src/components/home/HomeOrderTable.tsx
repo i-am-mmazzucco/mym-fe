@@ -1,7 +1,9 @@
-
-import styles from '@/styles/components/HomeOrderTable.module.scss';
+import styles from '@/styles/components/home/HomeOrderTable.module.scss';
+import { useRouter } from 'next/navigation';
 
 export default function HomeOrderTable() {
+	const router = useRouter();
+
 	return (
 		<div className={styles.orderContainer}>
 			<p>Últimos pedidos</p>
@@ -59,7 +61,9 @@ export default function HomeOrderTable() {
 										</p>
 									</td>
 									<td>
-										Ver detalles
+										<button onClick={() => router.push(`/orders/${order.id}`)}>
+											Ver detalles
+										</button>
 									</td>
 								</tr>
 							)

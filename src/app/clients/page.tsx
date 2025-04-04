@@ -1,5 +1,5 @@
-import ClientsTable from '@/components/ClientsTable';
-import styles from '@/styles/pages/Clients.module.scss';
+import ClientsTable from '@/components/clients/ClientsTable';
+import styles from '@/styles/pages/clients/Clients.module.scss';
 
 const Clients = () => (
   <div className={styles.clientsContainer}>

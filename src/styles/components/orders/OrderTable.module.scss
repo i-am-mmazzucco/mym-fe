@@ -1,0 +1,232 @@
+.orderTableContainer {
+	border-radius: 1.8rem;
+	border: 0.1rem solid var(--c-gray);
+	background: var(--c-white);
+	box-shadow: 0rem .4rem .8rem -.4rem rgba(0, 0, 0, .5);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 2.2rem;
+	align-self: stretch;
+	padding: 2.2rem 2.2rem 0rem 2.2rem;
+
+	header {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 100%;
+
+		p {
+			color: var(--c-black-100);
+			font-size: 2rem;
+			font-weight: 700;
+			line-height: 2.25rem;
+		}
+
+		div {
+			display: flex;
+			gap: 1.2rem;
+		
+			p {
+				margin: 0;
+				color: var(--c-black-200);
+				font-size: 1.8rem;
+				font-weight: 500;
+				padding: .6rem;
+
+				&:last-child {
+					display: flex;
+					padding: .6rem;
+					justify-content: center;
+					align-items: center;
+					border-radius: .8rem;
+					background: var(--c-white-100);
+					color: var(--c-black-200);
+					text-align: center;
+					font-size: 1.8rem;
+					font-weight: 500;
+					width: fit-content;
+				}
+			}
+		}
+	}
+
+	.order {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		gap: 4.2rem;
+		margin-bottom: 3.2rem;
+		
+		.detailOrder {
+			width: 50%;
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			align-self: stretch;
+			border-radius: 1.2rem;
+			border: .1rem solid var(--c-grey);
+
+			.filters {
+				width: 100%;
+				border-bottom: .1rem solid var(--c-grey);
+
+				p {
+					color: var(--c-black-100);
+					font-size: 1.8rem;
+					font-weight: 600;
+					line-height: 2.25rem;
+					padding-left: 1.6rem;
+				}
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+	
+				thead {
+					width: 100%;
+	
+					tr {
+						width: 100%;
+	
+						th {
+							color: var(--c-grey-100);
+							font-size: 1.2rem;
+							font-weight: 600;
+							padding: 1.6rem 1.6rem;
+							vertical-align: middle;
+							text-align: left;
+							
+							&:last-child {
+								display: flex;
+								align-items: center;
+								align-content: center;
+								gap: .5rem;
+							}
+						}
+					}
+				}
+	
+				tbody {
+					tr {
+						width: 100%;
+						height: 100%;
+						border-bottom: .1rem solid #e0e0e0;
+						background-color: #fff;
+	
+						td {
+							color: var(--c-black-200);
+							font-size: 1.4rem;
+							font-weight: 400;
+							padding: 1.4rem 1.6rem;
+	
+							p {
+								width: max-content;
+							}
+						}
+					
+						&:last-child {
+							border-bottom: 0;
+						}
+					}
+				}
+			}
+		}
+
+		.details {
+			width: 50%;
+			display: flex;
+			flex-direction: column;
+			gap: 3.2rem;
+		
+			.logistic {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				align-self: stretch;
+				border-radius: 1.2rem;
+				border: .1rem solid var(--c-grey);
+
+				.filters {
+					width: 100%;
+					border-bottom: .1rem solid var(--c-grey);
+	
+					p {
+						color: var(--c-black-100);
+						font-size: 1.8rem;
+						font-weight: 600;
+						line-height: 2.25rem;
+						padding-left: 1.6rem;
+					}
+				}
+
+				.content {
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+
+					text {
+						display: flex;
+						justify-content: space-between;
+						padding: 0 1.6rem;
+
+						p {
+							&:first-child {
+								color: var(--c-grey-100);
+								font-size: 1.2rem;
+								font-weight: 600;
+								vertical-align: middle;
+								text-align: left;
+							}
+						}
+					}
+				}
+			}
+
+			.pay {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				align-self: stretch;
+				border-radius: 1.2rem;
+				border: .1rem solid var(--c-grey);
+
+				.filters {
+					width: 100%;
+					border-bottom: .1rem solid var(--c-grey);
+	
+					p {
+						color: var(--c-black-100);
+						font-size: 1.8rem;
+						font-weight: 600;
+						line-height: 2.25rem;
+						padding-left: 1.6rem;
+					}
+				}
+
+				.content {
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+
+					text {
+						display: flex;
+						justify-content: space-between;
+						padding: 0 1.6rem;
+
+						p {
+							&:first-child {
+								color: var(--c-grey-100);
+								font-size: 1.2rem;
+								font-weight: 600;
+								vertical-align: middle;
+								text-align: left;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

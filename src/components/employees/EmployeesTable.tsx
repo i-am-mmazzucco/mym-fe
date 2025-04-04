@@ -1,6 +1,6 @@
 'use client'
 
-import styles from '@/styles/components/EmployeesTable.module.scss';
+import styles from '@/styles/components/employees/EmployeesTable.module.scss';
 
 export default function EmployeesTable() {
 	return (

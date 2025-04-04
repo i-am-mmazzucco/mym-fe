@@ -1,5 +1,5 @@
-import EmployeesTable from '@/components/EmployeesTable';
-import styles from '@/styles/pages/Employees.module.scss';
+import EmployeesTable from '@/components/employees/EmployeesTable';
+import styles from '@/styles/pages/employees/Employees.module.scss';
 
 export default function Employees() {
   return (		

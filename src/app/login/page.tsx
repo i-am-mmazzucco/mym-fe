@@ -1,4 +1,4 @@
-import styles from '@/styles/pages/Login.module.scss';
+import styles from '@/styles/pages/login/Login.module.scss';
 
 export default function Login() {
   return (
