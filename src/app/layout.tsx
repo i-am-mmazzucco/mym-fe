@@ -1,4 +1,6 @@
+'use client';
 import Container from "@/components/Container";
+import { ProductsProvider } from "@/components/context/product";
 import MenuPanel from "@/components/MenuPanel";
 import "@/styles/globals.scss";
 
@@ -10,10 +12,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <MenuPanel />
-        <div className="layout">
-          <Container>{children}</Container>
-        </div>
+        <ProductsProvider>
+          <MenuPanel />
+          <div className="layout">
+            <Container>{children}</Container>
+          </div>
+        </ProductsProvider>
       </body>
     </html>
   );

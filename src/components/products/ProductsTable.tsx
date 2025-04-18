@@ -1,8 +1,13 @@
 'use client'
 
 import styles from '@/styles/components/products/ProductsTable.module.scss';
+import React from 'react';
+import { ProductsContext } from '../context/product';
+import { redirect } from 'next/navigation';
 
 export default function ProductsTable() {
+  const { products } = React.useContext(ProductsContext);
+
 	return (
     <div className={styles.productsTableContainer}>
       <header>
@@ -55,13 +60,13 @@ export default function ProductsTable() {
           <tbody>
             {products.map((product => {
               return (
-                <tr key={product.id}>
+                <tr key={product.id} onClick={() => redirect(`/products/${product.id}`)}>
                   <td>{product.name}</td>
-                  <td>{product.stock}</td>
-                  <td>{product.number}</td>
+                  <td>{product.lot.quantity}</td>
+                  <td>{product.lot.lotNumber}</td>
                   <td>
-                    <p className={product.hasStock ? styles.yes : styles.no}>
-                      {product.hasStock ? 'SI' : 'NO'}
+                    <p className={product.isActive ? styles.yes : styles.no}>
+                      {product.isActive ? 'SI' : 'NO'}
                     </p>
                   </td>
                 </tr>
@@ -73,10 +78,3 @@ export default function ProductsTable() {
     </div>
 	)
 }
-
-const products = [
-  { id: 1, name: "Lavandina", stock: 200, number: '3525435321', hasStock: true },
-  { id: 2, name: "Lavandina", stock: 200, number: '3525435321', hasStock: true },
-  { id: 3, name: "Lavandina", stock: 200, number: '3525435321', hasStock: true },
-  { id: 4, name: "Lavandina", stock: 200, number: '3525435321', hasStock: false },
-];

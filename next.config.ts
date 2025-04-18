@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  env: {
+    beUrl: process.env.NEXT_PUBLIC_BE_URL, 
+  },
   images: {
     domains: ['images.unsplash.com'],
   }
