@@ -1,7 +1,17 @@
 import styles from '@/styles/components/home/HomeOrderTable.module.scss';
 import { useRouter } from 'next/navigation';
 
-export default function HomeOrderTable() {
+interface HomeOrderTableProps {
+	orders: {
+		id: number;
+		client: string;
+		date: string;
+		orderId: string;
+		status: string;
+	}[];
+}
+
+export default function HomeOrderTable({ orders }: HomeOrderTableProps) {
 	const router = useRouter();
 
 	return (
@@ -74,11 +84,3 @@ export default function HomeOrderTable() {
 		</div>
 	)
 }
-
-const orders = [
-  { id: 1, client: "Mateo Mazzuco", date: "20/08/2024", orderId: "N2862", status: "Asignado" },
-  { id: 2, client: "Casa Tia SRL", date: "20/08/2024", orderId: "N2861", status: "Sin asignar" },
-  { id: 3, client: "Lucas Velasco", date: "20/08/2024", orderId: "N2860", status: "Sin asignar" },
-  { id: 4, client: "Pinturerias Paclin SA", date: "19/08/2024", orderId: "N2859", status: "Asignado" },
-  { id: 5, client: "Marta Serrano", date: "19/08/2024", orderId: "N2858", status: "Asignado" },
-];

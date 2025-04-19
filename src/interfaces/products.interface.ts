@@ -7,8 +7,9 @@ export interface IProduct {
   description: string;
   isActive: boolean;
   category: string;
+  image?: string;
   lot: ILot;
-  createdAt: Date;
-  updatedAt: Date;
-  deletedAt: Date;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
 }
