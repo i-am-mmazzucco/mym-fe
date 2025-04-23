@@ -3,6 +3,7 @@
 import { IProduct } from "@/interfaces/products.interface";
 import React, { useEffect } from "react";
 import styles from '@/styles/pages/products/Product.module.scss';
+import Image from "next/image";
 
 export default function ProductPage({ params }: { params: { id: string } }) {
 	const [product, setProduct] = React.useState<IProduct | null>(null);
@@ -32,22 +33,52 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 				</div>
 				<p>{product?.name}</p>
       </div>
-			<div>
-				<button>Editar</button>
-				<div>
-					<img src={product?.image} alt={product?.name} />
-					<div>
-						<div>
-							<h1>{product?.name}</h1>
-							<p>{product?.description}</p>
+			<div className={styles.productDetailsContainer}>
+				<header>
+					<button>
+						<p>Editar</p>
+          </button>
+        </header>
+				<main className={styles.product}>
+					<div className={styles.productImage}>
+						<Image 
+							src={product?.image || '/assets/no-image.png'} 
+							alt={product?.name || 'No image'} 
+							fill
+							style={{ 
+								objectFit: 'contain',
+								backgroundColor: 'transparent',
+							}}
+							priority
+							unoptimized
+						/>
+					</div>
+					<div className={styles.productDetails}>                     
+						<div className={styles.productDetailsHeader}>
+							<p className={styles.productDetailsHeaderTitle}>
+								<h1>{product?.name}</h1>
+								<span className={product?.isActive ? styles.yes : styles.no}>
+									{product?.isActive ? 'ACTIVO' : 'INACTIVO'}
+								</span>
+							</p>
+							<p className={styles.productDetailsHeaderDescription}>{product?.description}</p>
 						</div>
-						<div>
-							<p><span>Cantidad en stock</span>{product?.lot?.quantity}</p>
-							<p><span>Número de lote</span>{product?.lot?.lotNumber}</p>
-							<p><span>Precio unitario</span>{product?.price}</p>
+						<div className={styles.productDetailsBody}>
+							<p>
+								<span>Cantidad en stock</span>
+								<span>{product?.lot?.quantity || 0}</span>
+							</p>
+							<p>
+								<span>Número de lote</span>
+								<span>{product?.lot?.lotNumber || 'N/A'}</span>
+							</p>
+							<p>
+								<span>Precio unitario</span>
+								<span>${product?.price}</span>
+							</p>
 						</div>
 					</div>
-				</div>
+				</main>
 			</div>
     </div>
   );

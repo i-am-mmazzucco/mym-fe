@@ -1,4 +1,5 @@
 import styles from '@/styles/components/Header.module.scss';
+import Image from 'next/image';
 
 const Header = () => (
 	<header className={styles.header}>
@@ -52,9 +53,11 @@ const Header = () => (
 				</div>
 			</div>
 			<button className={styles.avatar}>
-				<img 
+				<Image 
 					src={'/assets/me.jpeg'} 
 					alt={'me'}
+					width={40}
+					height={40}
 				/>
 				<p>Mateo Mazzucco</p>
 				<div>
