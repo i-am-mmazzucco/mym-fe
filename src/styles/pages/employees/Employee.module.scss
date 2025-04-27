@@ -1,0 +1,71 @@
+.employeeContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 3.2rem;
+
+	.breadcrumb { 
+		display: flex;
+		height: 3.9rem;
+		align-items: center;
+		align-content: center;
+		
+		p {
+			color: var(--c-black-200);
+			font-size: 1.8rem;
+			font-weight: 400;
+			line-height: 2.25rem;
+			padding: 0rem 1rem;
+
+			&:last-child {
+				color: var(--c-black);
+				font-size: 1.8rem;
+				font-weight: 600;
+				line-height: 2.25rem;
+				padding: 0rem 1rem;
+			}
+		}
+	}
+
+	.employeeInfo {	
+		display: flex;
+		padding: 3.4rem 1.8rem;
+		justify-content: space-between;
+		align-items: center;
+		align-self: stretch;
+		border-radius: .8rem;
+		background: var(--c-grey-50);
+
+		.employeeInfoHeader {	
+			h1 {
+				color: var(--c-black-100);
+				font-size: 2.4rem;
+				font-weight: 700;
+				line-height: 2.25rem;
+			}
+		}
+
+		.employeeInfoBody {
+			display: flex;
+			gap: 1.2rem;
+
+			div {
+				display: flex;
+				align-items: center;
+				gap: .4rem;
+
+        p {
+          color: var(--c-black-100);
+          font-size: 1.4rem;
+          font-weight: 700;
+          line-height: 1.4rem;
+
+					&:last-child {
+						color: var(--c-black-200);
+						font-weight: 400;
+						line-height: 1.4rem;
+					}
+        }
+			}
+		}
+	}
+}

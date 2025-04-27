@@ -7,9 +7,20 @@ export interface IEmployee {
 	address: string;
 	role: string;
 	routeId?: number;
+	createdAt: string;
+	updatedAt: string;
 	route?: {
 		id: number;
 		latitude: string;
 		longitude: string;
+		createdAt: string;
+		updatedAt: string;
 	};
+	routes?: {
+		id: number;
+		latitude: string;
+		longitude: string;
+		createdAt: string;
+		updatedAt: string;
+	}[];
 }
