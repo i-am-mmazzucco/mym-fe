@@ -1,7 +1,29 @@
+'use client'
 
+import { ISalesHistory } from '@/interfaces/orders.interface';
 import styles from '@/styles/components/home/HomeSalesTable.module.scss';
+import React, { useEffect } from 'react';
 
 export default function HomeSalesTable() {
+	const [salesData, setSalesData] = React.useState<ISalesHistory[]>([]);
+	const [startDate, setStartDate] = React.useState<string>('');
+	const [endDate, setEndDate] = React.useState<string>('');
+
+  useEffect(() => {
+    (async () => {
+			let url = `${process.env.NEXT_PUBLIC_BE_URL}/orders/sales`;
+
+			if (startDate && endDate) {
+				url += `?startDate=${startDate}&endDate=${endDate}`;
+			}
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      setSalesData(data);
+    })();
+  }, [startDate, endDate]);
+
 	return (
 		<div className={styles.sales}>
 			<div className={styles.filters}>
@@ -29,12 +51,21 @@ export default function HomeSalesTable() {
 					</tr>
 				</thead>
 				<tbody>
-					{products.map((product => {
+					{salesData.map((saleData => {
 						return (
-							<tr key={product.id}>
-								<td>{product.name}</td>
-								<td>{product.volume}</td>
-								<td>{product.revenue}</td>
+							<tr key={saleData.productId}>
+								<td>{saleData.productName}</td>
+								<td>{saleData.lotQuantity} {
+									saleData.lotUnitOfMeasure === 'kg' 
+										? 'KG' 
+										: saleData.lotUnitOfMeasure === 'g' 
+											? 'G' 
+											: saleData.lotUnitOfMeasure === 'ml' 
+												? 'Ml' 
+												: saleData.lotUnitOfMeasure === 'l' 
+													? 'L' 
+													: 'Unidades'}</td>
+								<td>${saleData.totalRevenue}</td>
 							</tr>
 						)
 					}))}
@@ -43,11 +74,3 @@ export default function HomeSalesTable() {
 		</div>
 	)
 }
-
-const products = [
-  { id: 1, name: "Cloro", volume: "20.000 Litros", revenue: 2000000 },
-  { id: 2, name: "Lavandina", volume: "18.000 Litros", revenue: 2600000 },
-  { id: 3, name: "Detergente", volume: "11.000 Litros", revenue: 2600000 },
-  { id: 4, name: "Jabón líquido", volume: "5.000 Litros", revenue: 4200000 },
-  { id: 5, name: "Alcohol en gel", volume: "2.500 Litros", revenue: 2000000 },
-];

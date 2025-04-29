@@ -1,5 +1,6 @@
 import styles from '@/styles/components/Sidebar.module.scss';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const SvgSelector = (props: { href: string }) => {
 	switch (props.href) {
@@ -84,17 +85,19 @@ const SvgSelector = (props: { href: string }) => {
 	}
 }
 
-const LiButton = (props: { href: string, name: string }) => (
-	<li>
+const LiButton = (props: { href: string, name: string, currentPage: boolean }) => (
+	<li className={props.currentPage ? styles.currentPage : ''}>
 		<SvgSelector href={props.href} />
 		<Link href={`/${props.href}`}>{props.name}</Link>
 	</li>
 )
 
 const Sidebar = () => {
+	const pathname = usePathname();
+
 	return (
 		<aside className={styles.sideBar}>
-			<div>
+			<button>
 				<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
 					<g clip-path="url(#clip0_147_116)">
 						<path d="M24.5 5.25H3.5V7H24.5V5.25Z" fill="black"/>
@@ -108,14 +111,14 @@ const Sidebar = () => {
 						</clipPath>
 					</defs>
 				</svg>
-			</div>
+			</button>
 			<nav>
 				<ul>
-					<LiButton href="" name="Inicio" />
-					<LiButton href="clients" name="Clientes" />
-					<LiButton href="employees" name="Empleados" />
-					<LiButton href="products" name="Productos" />
-					<LiButton href="orders" name="Pedidos" />
+					<LiButton href="" name="Inicio" currentPage={pathname === '/'} />
+					<LiButton href="clients" name="Clientes" currentPage={pathname === '/clients' || pathname.includes('/clients')} />
+					<LiButton href="employees" name="Empleados" currentPage={pathname === '/employees' || pathname.includes('/employees')} />
+					<LiButton href="products" name="Productos" currentPage={pathname === '/products' || pathname.includes('/products')} />
+					<LiButton href="orders" name="Pedidos" currentPage={pathname === '/orders' || pathname.includes('/orders')} />
 				</ul>
 			</nav>
 		</aside>

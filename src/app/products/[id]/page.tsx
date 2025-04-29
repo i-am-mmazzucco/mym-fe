@@ -5,7 +5,13 @@ import React, { useEffect } from "react";
 import styles from '@/styles/pages/products/Product.module.scss';
 import Image from "next/image";
 
-export default function ProductPage({ params }: { params: { id: string } }) {
+interface ProductProps {
+	params: {
+		id: string;
+	}
+}
+
+export default function Product({ params }: ProductProps) {
 	const [product, setProduct] = React.useState<IProduct | null>(null);
 
 	useEffect(() => {

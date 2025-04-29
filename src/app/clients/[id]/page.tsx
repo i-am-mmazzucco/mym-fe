@@ -1,19 +1,24 @@
 'use client'
 
-import Sidebar from "@/components/MenuPanel";
 import React, { useEffect } from "react";
 import { IClient } from "@/interfaces/clients.interface";
 import styles from '@/styles/pages/clients/Client.module.scss';
-import HomeOrderTable from "@/components/home/HomeOrderTable";
+import ClientOrders from "@/components/clients/ClientOrders";
+import { IOrder } from "@/interfaces/orders.interface";
 
 const ClientDetailPage = ({ params }: { params: { id: string } }) => {
 	const [client, setClient] = React.useState<IClient | null>(null);
+  const [orders, setOrders] = React.useState<IOrder[]>([]);
 
 	useEffect(() => {
 		(async () => {
 			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/clients/${params.id}`);
 			const client = await response.json();
 			setClient(client);
+
+			const responseOrders = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/orders?clientId=${params.id}`);
+			const orders = await responseOrders.json();
+			setOrders(orders);
 		})();
 	}, []);
 
@@ -69,7 +74,7 @@ const ClientDetailPage = ({ params }: { params: { id: string } }) => {
           </div>
         </div>
       </div>
-      <HomeOrderTable orders={[]} />
+      <ClientOrders orders={orders} />
     </div>
   );
 };

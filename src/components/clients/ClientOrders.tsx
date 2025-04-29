@@ -1,12 +1,14 @@
+import { IOrder } from '@/interfaces/orders.interface';
 import styles from '@/styles/components/home/HomeOrderTable.module.scss';
-import { useRouter } from 'next/navigation';
 import React from 'react';
-import { OrdersContext } from '../context/order';
+import { useRouter } from 'next/navigation';
 
-export default function HomeOrderTable() {
+interface ClientOrdersProps {
+	orders: IOrder[];
+}
+
+export default function ClientOrders({ orders }: ClientOrdersProps) {
 	const router = useRouter();
-
-	const { orders } = React.useContext(OrdersContext);
 
 	return (
 		<div className={styles.orderContainer}>
@@ -33,7 +35,7 @@ export default function HomeOrderTable() {
 				<table className={styles.table}>
 					<thead>
 						<tr>
-							<th>CLIENTE</th>
+							<th>PEDIDO</th>
 							<th>
 								FECHA
 								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
@@ -47,7 +49,7 @@ export default function HomeOrderTable() {
 									</defs>
 								</svg>
 							</th>
-							<th>PEDIDO</th>
+							<th>PRECIO</th>
 							<th>ESTADO</th>
 							<th></th>
 						</tr>
@@ -56,9 +58,9 @@ export default function HomeOrderTable() {
 						{orders.map((order => {
 							return (
 								<tr key={order.id}>
-									<td>{order.client.name} {order.client.lastName}</td>
-									<td>{new Date(order.createdAt).toLocaleDateString()}</td>
 									<td>N{order.id}</td>
+									<td>{new Date(order.createdAt).toLocaleDateString()}</td>
+									<td>${order.totalAmountPaid || 0}</td>
 									<td>
 										<p className={order.statusDelivery === 'delivered' ? styles.buttonAssigned : styles.buttonNotAssigned}>
 											{order.statusDelivery === 'delivered' ? 'Entregado' : 'Pendiente'}

@@ -1,15 +1,20 @@
 'use client'
 
 import styles from '@/styles/components/orders/OrderTable.module.scss';
+import { IOrder } from '@/interfaces/orders.interface';
 
-export default function OrderTable() {
+interface OrderTableProps {
+	order: IOrder | null;
+}
+
+export default function OrderTable({ order }: OrderTableProps) {
 	return (
     <div className={styles.orderTableContainer}>
       <header>
-        <p>Pedido N2123</p>
+        <p>Pedido N{order?.id}</p>
         <div>
           <p>Cliente</p>
-					<p>Mateo Mazzucco</p>
+					<p>{order?.client.name} {order?.client.lastName}</p>
         </div>
       </header>
       <main className={styles.order}>
@@ -26,17 +31,17 @@ export default function OrderTable() {
               </tr>
             </thead>
             <tbody>
-              {order.map((o => {
+              {order?.items.map((item => {
                 return (
-                  <tr key={o.id}>
+                  <tr key={item.id}>
                     <td>
-                      {o.item}
+                      {item.product.name}  
                     </td>
                     <td>
-                      {o.quantity}
+                      {item.quantity}
                     </td>
                     <td>
-                      {o.unitPrice}
+                      {item.product.price * item.quantity} 
                     </td>
                   </tr>
                 )
@@ -52,19 +57,19 @@ export default function OrderTable() {
             <div className={styles.content}>
               <text>
                 <p>Ruta asignada</p>
-                <p>Laura Zohu</p>
+                <p>{order?.employeeAssigned.name} {order?.employeeAssigned.lastName}</p>
               </text>
               <text>
                 <p>Dirección de entrega</p>
-                <p>Luis dolivo 3468</p>
+                <p>{order?.client.address}</p>
               </text>
               <text>
                 <p>Fecha</p>
-                <p>20/08/24</p>
+                <p>{order?.dateDelivery ? new Date(order?.dateDelivery).toLocaleDateString() : 'Sin fecha de entrega'}</p>
               </text>
               <text>
                 <p>Estado</p>
-                <p>Entregado</p>
+                <p>{order?.statusDelivery === 'pending' ? 'Pendiente' : order?.statusDelivery === 'delivered' ? 'Entregado' : 'Cancelado'}</p>
               </text>
             </div>
           </div>
@@ -75,19 +80,29 @@ export default function OrderTable() {
             <div className={styles.content}>
               <text>
                 <p>Factura</p>
-                <p>F-2045</p>
+                <p>{order?.invoiceNumber || 'Sin factura'}</p>
               </text>
               <text>
                 <p>Total facturado</p>
-                <p>$720.000</p>
+                <p>${order?.totalAmountPaid}</p>
               </text>
               <text>
                 <p>Medio de pago</p>
-                <p>Transferencia</p>
+                <p>
+                  {
+                    order?.typePayment === 'cash' 
+                      ? 'Efectivo' 
+                      : order?.typePayment === 'debit_card' 
+                        ? 'Tarjeta débito' 
+                        : order?.typePayment === 'credit_card' 
+                          ? 'Tarjeta crédito' 
+                          : 'Sin pago'
+                  }
+                </p>
               </text>
               <text>
                 <p>Estado</p>
-                <p>Pagado</p>
+                <p>{order?.statusPayment === 'pending' ? 'Pendiente' : order?.statusPayment === 'paid' ? 'Pagado' : 'Cancelado'}</p>
               </text>
             </div>
           </div>
@@ -96,11 +111,3 @@ export default function OrderTable() {
     </div>
 	)
 }
-
-const order = [
-  { id: 1, item: "Lavandina", quantity: 3, unitPrice: 20000 },
-  { id: 2, item: "Jabón líquido", quantity: 6, unitPrice: 12000 },
-  { id: 3, item: "Enjuague ropa", quantity: 4, unitPrice: 13000 },
-  { id: 4, item: "Cloro", quantity: 5, unitPrice: 7000 },
-  { id: 5, item: "Limpia vidrios", quantity: 6, unitPrice: 30000 },
-];

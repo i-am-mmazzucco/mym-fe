@@ -9,8 +9,12 @@
 	left: 0;
 	top: 0;
 		
-	div {
+	button {
 		margin: 2.4rem 1rem .8rem 1rem;
+		background: none;
+		border: none;
+		cursor: pointer;
+		width: fit-content;
 	}
 
 	nav {
@@ -43,10 +47,10 @@
 				svg {
 					margin: .8rem;
 				}
+			}
 
-				&:first-child {
-					background: var(--c-white-200);
-				}
+			.currentPage {
+				background: var(--c-white-200);
 			}
 		}
 	}
