@@ -41,9 +41,9 @@ export default function ProductsTable() {
         <header>
           <p>Productos</p>
           <button onClick={handleNewProduct}>
-          <p>Nuevo producto</p>
-          <p>+</p>
-        </button>
+            <p>Nuevo producto</p>
+            <p>+</p>
+          </button>
         </header>
         <main className={styles.products}>
           <div className={styles.filters}>

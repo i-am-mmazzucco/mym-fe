@@ -86,18 +86,16 @@ export default function ClientsTable() {
               </tr>
             </thead>
             <tbody>
-              {clients.map((client => {
-                return (
-                  <tr key={client.id} onClick={() => redirect(`/clients/${client.id}`)}>
-                    <td>{client.name}</td>
-                    <td>{client.address}</td>
-                    <td>{client.phone}</td>
-                    <td>
-                      {/* {client.sellPercentage!} */}
-                    </td>
-                  </tr>
-                )
-              }))}
+              {clients.map(client => (
+                <tr key={client.id} onClick={() => redirect(`/clients/${client.id}`)}>
+                  <td>{client.name}</td>
+                  <td>{client.address}</td>
+                  <td>{client.phone}</td>
+                  <td>
+                    {client.salesAverage}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </main>

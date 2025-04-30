@@ -4,6 +4,7 @@ import { IProduct } from "@/interfaces/products.interface";
 import React, { useEffect } from "react";
 import styles from '@/styles/pages/products/Product.module.scss';
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface ProductProps {
 	params: {
@@ -12,6 +13,7 @@ interface ProductProps {
 }
 
 export default function Product({ params }: ProductProps) {
+	const router = useRouter();
 	const [product, setProduct] = React.useState<IProduct | null>(null);
 
 	useEffect(() => {
@@ -25,13 +27,13 @@ export default function Product({ params }: ProductProps) {
   return (
     <div className={styles.productContainer}>
 			<div className={styles.breadcrumb}>
-				<p>Inicio</p>
+				<p onClick={() => router.push('/')}>Inicio</p>
 				<div>
 					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
 						<path d="M9.62501 7.5L5.25001 11.875L4.63751 11.2625L8.40001 7.5L4.63751 3.7375L5.25001 3.125L9.62501 7.5Z" fill="#414141"/>
 					</svg>
 				</div>
-				<p>Productos</p>
+				<p onClick={() => router.push('/products')}>Productos</p>
 				<div>
 					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
 						<path d="M9.62501 7.5L5.25001 11.875L4.63751 11.2625L8.40001 7.5L4.63751 3.7375L5.25001 3.125L9.62501 7.5Z" fill="#414141"/>
@@ -72,7 +74,20 @@ export default function Product({ params }: ProductProps) {
 						<div className={styles.productDetailsBody}>
 							<p>
 								<span>Cantidad en stock</span>
-								<span>{product?.lot?.quantity || 0}</span>
+								<span>
+									{product?.lot?.quantity || 0} 
+									{
+										product?.lot?.unitOfMeasure === 'kg' 
+											? ' KG' 
+											: product?.lot?.unitOfMeasure === 'g' 
+												? ' G' 
+												: product?.lot?.unitOfMeasure === 'ml' 
+													? ' Ml' 
+													: product?.lot?.unitOfMeasure === 'l' 
+														? ' L' 
+														: ' Unidades'
+									}
+								</span>
 							</p>
 							<p>
 								<span>Número de lote</span>

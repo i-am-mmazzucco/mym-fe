@@ -7,4 +7,5 @@ export interface IClient {
 	role: string;
 	routeId?: number;
 	id: number;
+	salesAverage: string;
 }

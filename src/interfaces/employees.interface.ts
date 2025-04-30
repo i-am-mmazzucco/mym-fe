@@ -9,6 +9,7 @@ export interface IEmployee {
 	routeId?: number;
 	createdAt: string;
 	updatedAt: string;
+	image?: string;
 	route?: {
 		id: number;
 		latitude: string;

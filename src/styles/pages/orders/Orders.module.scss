@@ -10,6 +10,8 @@
 		align-content: center;
 		
 		p {
+			cursor: pointer;
+
 			&:first-child {
 				color: var(--c-black-200);
 				font-size: 1.8rem;
