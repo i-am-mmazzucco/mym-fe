@@ -82,7 +82,7 @@ export default function OrderTable({ order }: OrderTableProps) {
                 </text>
                 <text>
                   <p>Fecha</p>
-                  <p>{order?.dateDelivery ? new Date(order?.dateDelivery).toLocaleDateString() : 'Sin fecha de entrega'}</p>
+                  <p>{order?.dateDelivery ? new Date(order?.dateDelivery).toISOString().split('T')[0] : 'Sin fecha de entrega'}</p>
                 </text>
                 <text>
                   <p>Estado</p>

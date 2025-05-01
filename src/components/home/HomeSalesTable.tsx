@@ -2,17 +2,19 @@
 
 import { ISalesHistory } from '@/interfaces/orders.interface';
 import styles from '@/styles/components/home/HomeSalesTable.module.scss';
+import moment from 'moment';
 import React, { useEffect } from 'react';
 
 export default function HomeSalesTable() {
 	const [salesData, setSalesData] = React.useState<ISalesHistory[]>([]);
-	const [startDate, setStartDate] = React.useState<string>('');
-	const [endDate, setEndDate] = React.useState<string>('');
+	const [startDate, setStartDate] = React.useState<string>(moment().subtract(30, 'days').format('YYYY-MM-DD'));
+	const [endDate, setEndDate] = React.useState<string>(moment().format('YYYY-MM-DD'));
+	const [filterOption, setFilterOption] = React.useState<string>('month');
 
   useEffect(() => {
     (async () => {
 			let url = `${process.env.NEXT_PUBLIC_BE_URL}/orders/sales`;
-
+			console.log(startDate, endDate)
 			if (startDate && endDate) {
 				url += `?startDate=${startDate}&endDate=${endDate}`;
 			}
@@ -24,23 +26,36 @@ export default function HomeSalesTable() {
     })();
   }, [startDate, endDate]);
 
+	const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const value = e.target.value;
+		setFilterOption(value);
+		
+		if (value === 'month') {
+			setStartDate(moment().subtract(30, 'days').format('YYYY-MM-DD'))
+		}
+		if (value === 'week') {
+			setStartDate(moment().subtract(7, 'days').format('YYYY-MM-DD'))
+		}
+		if (value === 'day') {
+			setStartDate(moment().subtract(1, 'days').format('YYYY-MM-DD'))
+		}
+
+		setEndDate(moment().format('YYYY-MM-DD'))
+	};
+
 	return (
 		<div className={styles.sales}>
 			<div className={styles.filters}>
 				<p>Productos mas vendidos</p>
-				<button>
-					Mes en curso
-					<svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
-						<g clip-path="url(#clip0_211_200)">
-							<path d="M7 10.125L2.625 5.75001L3.2375 5.13751L7 8.90001L10.7625 5.13751L11.375 5.75001L7 10.125Z" fill="#212121"/>
-						</g>
-						<defs>
-							<clipPath id="clip0_211_200">
-								<rect width="14" height="14" fill="white" transform="translate(0 0.5)"/>
-							</clipPath>
-						</defs>
-					</svg>
-				</button>
+				<select 
+					value={filterOption} 
+					onChange={handleFilterChange}
+					className={styles.filterSelect}
+				>
+					<option value="month">Mes en curso</option>
+					<option value="week">7 Dias</option>
+					<option value="day">1 Dia</option>
+				</select>
 			</div>
 			<table className={styles.table}>
 				<thead>

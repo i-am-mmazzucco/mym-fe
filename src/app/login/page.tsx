@@ -1,6 +1,15 @@
+'use client';
 import styles from '@/styles/pages/login/Login.module.scss';
+import { useAuth } from '@/components/context/auth';
 
 export default function Login() {
+	const auth = useAuth();
+
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		auth.login('123456');
+	}
+
   return (
     <div className={styles.container}>
 			<div className={styles.topBar}>
@@ -29,15 +38,15 @@ export default function Login() {
 						<h1>Bienvenido</h1>
 						<p>Para comenzar, inicia sesión.</p>
 					</div>
-					<form className={styles.middleForm}>
+					<form className={styles.middleForm} onSubmit={handleSubmit}>
 						<input
 							type="email"
-							placeholder="mateomazuco@gmail.com"
+							placeholder="m&m@gmail.com"
 							className={styles.input}
 						/>
 						<input
-							type="email"
-							placeholder="****************"
+							type="password"
+							placeholder="********"
 							className={styles.input}
 						/>
 						<button>
@@ -66,7 +75,7 @@ export default function Login() {
 				<p>
 					¿No tenés una cuenta?
 				</p>
-				<a href="/register">
+				<a>
 					Registrate
 				</a>
 			</footer>

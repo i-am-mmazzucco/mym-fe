@@ -10,7 +10,8 @@ const url = process.env.beUrl as string;
 export default function OrderTable() {
 	const router = useRouter();
 	const { orders, setOrders } = React.useContext(OrdersContext);
-
+	const [ordersFiltered, setOrdersFiltered] = React.useState(orders);
+	const [search, setSearch] = React.useState('');
 	const [isNewOrderModalOpen, setIsNewOrderModalOpen] = React.useState(false);
 
   const handleNewOrder = () => {
@@ -31,9 +32,32 @@ export default function OrderTable() {
         });
         const data = await response.json();
         setOrders(data); 
+        setOrdersFiltered(data);
       })()
     }
   }, [isNewOrderModalOpen]);
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const search = e.target.value;
+		setSearch(search.toLowerCase());
+	}
+
+	useEffect(() => {
+		if (search.length > 0) {
+			(async () => {
+        const response = await fetch(`${url}/orders?q=${search}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        setOrdersFiltered(data);
+      })()
+		} else {
+			setOrdersFiltered(orders)
+		}
+	}, [search, orders])
 
 	return (
 		<>
@@ -49,7 +73,7 @@ export default function OrderTable() {
 				<div className={styles.orderTable}>
 					<div className={styles.filters}>
 						<label>
-							<input type='text' placeholder='Buscar en últimos pedidos'/>
+							<input type='text' placeholder='Buscar en últimos pedidos' onChange={handleSearch}/>
 						</label>
 						<button>
 							<p>Filtrar</p>
@@ -88,11 +112,11 @@ export default function OrderTable() {
 							</tr>
 						</thead>
 						<tbody>
-							{orders.map((order => {
+							{ordersFiltered.map((order => {
 								return (
 									<tr key={order.id}>
 										<td>{order.client.name} {order.client.lastName}</td>
-										<td>{new Date(order.createdAt).toLocaleDateString()}</td>
+										<td>{new Date(order.createdAt).toISOString().split('T')[0]}</td>
 										<td>N{order.id}</td>
 										<td>
 											<p className={order.statusDelivery === 'delivered' ? styles.buttonAssigned : styles.buttonNotAssigned}>

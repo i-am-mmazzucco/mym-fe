@@ -11,6 +11,8 @@ const url = process.env.beUrl as string;
 export default function EmployeesTable() {
   const { employees, setEmployees } = React.useContext(EmployeesContext);
   const [isNewEmployeeModalOpen, setIsNewEmployeeModalOpen] = React.useState(false);
+  const [search, setSearch] = React.useState('');
+  const [employeesFiltered, setEmployeesFiltered] = React.useState(employees);
 
   const handleNewEmployee = () => {
     setIsNewEmployeeModalOpen(true);
@@ -30,9 +32,32 @@ export default function EmployeesTable() {
         });
         const data = await response.json();
         setEmployees(data); 
+        setEmployeesFiltered(data);
       })()
     }
   }, [isNewEmployeeModalOpen]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const search = e.target.value;
+		setSearch(search.toLowerCase());
+	}
+
+	useEffect(() => {
+		if (search.length > 0) {
+			(async () => {
+        const response = await fetch(`${url}/employees?q=${search}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        setEmployeesFiltered(data);
+      })()
+		} else {
+			setEmployeesFiltered(employees)
+		}
+	}, [search, employees])
 
 	return (
     <>
@@ -48,7 +73,7 @@ export default function EmployeesTable() {
         <main className={styles.employees}>
           <div className={styles.filters}>
             <label>
-              <input type='text' placeholder='Buscar en empleados' />
+              <input type='text' placeholder='Buscar en empleados' onChange={handleSearch}/>
             </label>
             <button>
               <p>Filtrar</p>
@@ -74,7 +99,7 @@ export default function EmployeesTable() {
               </tr>
             </thead>
             <tbody>
-              {employees.map((employee => {
+              {employeesFiltered.map((employee => {
                 return (
                   <tr key={employee.id} onClick={() => redirect(`/employees/${employee.id}`)}>
                     <td>{employee.name}</td>

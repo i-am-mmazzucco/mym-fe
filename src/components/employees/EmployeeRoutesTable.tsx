@@ -78,12 +78,12 @@ export default function EmployeeRoutesTable({ employee }: EmployeeRoutesTablePro
 								</tr>
 							</thead>
 							<tbody>
-								{(employee?.routes || [{id: 1, createdAt: '2021-01-01', updatedAt: '2021-01-01'}]).map((route) => {
+								{(employee?.routes || []).map((route) => {
 									return (
 										<tr key={route.id}>
 											<td>{route.id}</td>
 											<td>{employee?.name} {employee?.lastName}</td>
-											<td>{route.updatedAt}</td>
+											<td>{new Date(route.updatedAt).toISOString().split('T')[0]}</td>
 											<td>
 												<button>
 													Ver recorrido

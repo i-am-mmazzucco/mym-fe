@@ -59,7 +59,7 @@ export default function ClientOrders({ orders }: ClientOrdersProps) {
 							return (
 								<tr key={order.id}>
 									<td>N{order.id}</td>
-									<td>{new Date(order.createdAt).toLocaleDateString()}</td>
+									<td>{new Date(order.createdAt).toISOString().split('T')[0]}</td>
 									<td>${order.totalAmountPaid || 0}</td>
 									<td>
 										<p className={order.statusDelivery === 'delivered' ? styles.buttonAssigned : styles.buttonNotAssigned}>

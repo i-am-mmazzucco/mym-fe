@@ -11,6 +11,8 @@ const url = process.env.beUrl as string;
 export default function ProductsTable() {
   const { products, setProducts } = React.useContext(ProductsContext);
   const [isNewProductModalOpen, setIsNewProductModalOpen] = React.useState(false);
+  const [search, setSearch] = React.useState('');
+  const [productsFiltered, setProductsFiltered] = React.useState(products);
 
   const handleNewProduct = () => {
     setIsNewProductModalOpen(true);
@@ -30,9 +32,32 @@ export default function ProductsTable() {
         });
         const data = await response.json();
         setProducts(data); 
+        setProductsFiltered(data);
       })()
     }
   }, [isNewProductModalOpen]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const search = e.target.value;
+		setSearch(search.toLowerCase());
+	}
+
+	useEffect(() => {
+		if (search.length > 0) {
+			(async () => {
+        const response = await fetch(`${url}/products?q=${search}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        setProductsFiltered(data);
+      })()
+		} else {
+			setProductsFiltered(products)
+		}
+	}, [search, products])
 
 	return (
     <>
@@ -48,7 +73,7 @@ export default function ProductsTable() {
         <main className={styles.products}>
           <div className={styles.filters}>
             <label>
-              <input type='text' placeholder='Buscar en productos' />
+              <input type='text' placeholder='Buscar en productos' onChange={handleSearch}/>
             </label>
             <button>
               <p>Filtrar</p>
@@ -86,7 +111,7 @@ export default function ProductsTable() {
               </tr>
             </thead>
             <tbody>
-              {products.map((product => {
+              {productsFiltered.map((product => {
                 return (
                   <tr key={product.id} onClick={() => redirect(`/products/${product.id}`)}>
                     <td>{product.name}</td>

@@ -11,6 +11,8 @@ const url = process.env.beUrl as string;
 export default function ClientsTable() {
   const { clients, setClients } = React.useContext(ClientsContext);
   const [isNewClientModalOpen, setIsNewClientModalOpen] = React.useState(false);
+  const [search, setSearch] = React.useState('');
+  const [clientsFiltered, setClientsFiltered] = React.useState(clients);
 
   const handleNewClient = () => {
     setIsNewClientModalOpen(true);
@@ -30,9 +32,32 @@ export default function ClientsTable() {
         });
         const data = await response.json();
         setClients(data);
+        setClientsFiltered(data);
       })()
     }
   }, [isNewClientModalOpen]);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const search = e.target.value;
+		setSearch(search.toLowerCase());
+	}
+
+	useEffect(() => {
+		if (search.length > 0) {
+			(async () => {
+        const response = await fetch(`${url}/clients?q=${search}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        setClientsFiltered(data);
+      })()
+		} else {
+			setClientsFiltered(clients)
+		}
+	}, [search, clients])
 
 	return (
     <>
@@ -48,7 +73,7 @@ export default function ClientsTable() {
         <main className={styles.clients}>
           <div className={styles.filters}>
             <label>
-              <input type='text' placeholder='Buscar en clientes' />
+              <input type='text' placeholder='Buscar en clientes' onChange={handleSearch}/>
             </label>
             <button>
               <p>Filtrar</p>
@@ -86,7 +111,7 @@ export default function ClientsTable() {
               </tr>
             </thead>
             <tbody>
-              {clients.map(client => (
+              {clientsFiltered.map(client => (
                 <tr key={client.id} onClick={() => redirect(`/clients/${client.id}`)}>
                   <td>{client.name}</td>
                   <td>{client.address}</td>

@@ -27,11 +27,11 @@ export default function LotDetails({ order, setIsLotOpen, itemId }: LotDetailsPr
 					</td>
 					<td>
 						<span>Fecha de elaboración</span>
-						<p>{item?.product?.lot?.manufactureDate ? new Date(item?.product?.lot?.manufactureDate).toLocaleDateString() : 'Sin fecha'}</p>
+						<p>{item?.product?.lot?.manufactureDate ? new Date(item?.product?.lot?.manufactureDate).toISOString().split('T')[0] : 'Sin fecha'}</p>
 					</td>
 					<td>
 						<span>Fecha de vencimiento</span>
-						<p>{item?.product?.lot?.expirationDate ? new Date(item?.product?.lot?.expirationDate).toLocaleDateString() : 'Sin fecha'}</p>
+						<p>{item?.product?.lot?.expirationDate ? new Date(item?.product?.lot?.expirationDate).toISOString().split('T')[0] : 'Sin fecha'}</p>
 					</td>
 				</tr>
 			</div>
