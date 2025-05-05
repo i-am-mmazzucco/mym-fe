@@ -9,8 +9,8 @@ interface LotDetailsProps {
 
 export default function LotDetails({ order, setIsLotOpen, itemId }: LotDetailsProps) {
 	const item = order?.items.find(item => item.id === itemId);
-	console.log(`Item: ${JSON.stringify(item)}`);
-  return (
+
+	return (
 		<div className={styles.lotDetailsContainer}>
 			<div className={styles.lotDetailsBox}>
 				<button className={styles.closeButton} onClick={() => setIsLotOpen(false)}>
@@ -23,7 +23,7 @@ export default function LotDetails({ order, setIsLotOpen, itemId }: LotDetailsPr
 					</td>
 					<td>
 						<span>Lote</span>
-						<p>N{item?.product?.lot?.lotNumber}</p>
+						<p>N°{item?.product?.lot?.lotNumber}</p>
 					</td>
 					<td>
 						<span>Fecha de elaboración</span>

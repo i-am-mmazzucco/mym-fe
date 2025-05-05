@@ -3,41 +3,79 @@
 import styles from '@/styles/components/employees/EmployeeRoutesTable.module.scss';
 import React, { useEffect } from 'react';
 import NewRoute from './NewRoute';
-import { useLoadScript } from '@react-google-maps/api';
 import { IEmployee } from '@/interfaces/employees.interface';
-import dynamic from 'next/dynamic';
-
-const GoogleMapComponent = dynamic(
-  () => import('@react-google-maps/api').then(mod => mod.GoogleMap),
-  { ssr: false } // This prevents server-side rendering
-);
-
+import GoogleMaps, { MarkerProps, RouteProps } from '../googleMaps/GoogleMaps';
+import SeeRoute from './SeeRoute';
+import { EmployeesContext } from '../context/employees';
 interface EmployeeRoutesTableProps {
   employee: IEmployee | null;
 }
 
-export default function EmployeeRoutesTable({ employee }: EmployeeRoutesTableProps) {
-  const [isNewRouteAssigningForEmployeeModalOpen, setIsNewRouteAssigningForEmployeeModalOpen] = React.useState(false);
+export const warehouseOrigin = { lat: -31.051295, lng: -64.026207 };
 
+const url = process.env.beUrl as string;
+
+export default function EmployeeRoutesTable({ employee }: EmployeeRoutesTableProps) {
+	const [currentEmployee, setCurrentEmployee] = React.useState<IEmployee | null>(employee);
+  const [isNewRouteAssigningForEmployeeModalOpen, setIsNewRouteAssigningForEmployeeModalOpen] = React.useState(false);
+  const [isSeeRouteModalOpen, setIsSeeRouteModalOpen] = React.useState(false);
+	const [selectedRouteId, setSelectedRouteId] = React.useState<{ markers: MarkerProps[], routes: RouteProps[] } | null>(null);
+	const { setEmployees } = React.useContext(EmployeesContext);
+	
   const handleNewRouteAssigningForEmployee = () => {
     setIsNewRouteAssigningForEmployeeModalOpen(true);
   } 
-
-	const { isLoaded } = useLoadScript({
-		googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || '',
-	});
   
   useEffect(() => {
     if (isNewRouteAssigningForEmployeeModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
+      (async () => {
+        const response = await fetch(`${url}/employees`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data = await response.json();
+        setEmployees(data);
+        setCurrentEmployee(data.find((e: IEmployee) => e.id === employee?.id) || employee);
+      })()
     }
-  }, [isNewRouteAssigningForEmployeeModalOpen]);
+  }, [isNewRouteAssigningForEmployeeModalOpen, employee]);
+
+	const routes = currentEmployee?.routes?.map(route => {
+		return {
+			id: route.id.toString(),
+			origin: warehouseOrigin,
+			destination: { lat: route.coordinates.coordinates[1], lng: route.coordinates.coordinates[0] }
+		}
+	}) || [];
+
+	const markers = currentEmployee?.routes?.map(route => {
+		return {
+			id: route.id.toString(),
+			lat: route.coordinates.coordinates[1],
+			long: route.coordinates.coordinates[0]
+		}
+	}) || [];
+
+	const handleSeeRoute = () => {
+		setSelectedRouteId({
+			markers: [
+				...markers,
+				{ lat: warehouseOrigin.lat, long: warehouseOrigin.lng, id: 'warehouse1' }
+			],
+			routes
+		});
+		setIsSeeRouteModalOpen(true);
+	}
 
 	return (
     <>
-      {isNewRouteAssigningForEmployeeModalOpen && <NewRoute setIsNewRouteAssigningForEmployeeModalOpen={setIsNewRouteAssigningForEmployeeModalOpen}/>}
+			{ isSeeRouteModalOpen && <SeeRoute setIsSeeRouteModalOpen={setIsSeeRouteModalOpen} markers={selectedRouteId?.markers || []} routes={selectedRouteId?.routes || []}/> }
+      { isNewRouteAssigningForEmployeeModalOpen && <NewRoute setIsNewRouteAssigningForEmployeeModalOpen={setIsNewRouteAssigningForEmployeeModalOpen} employeeId={employee?.id as number} /> }
       <div className={styles.employeeRoutesTableContainer}>
         <header>
           <p>Últimas rutas asignadas</p>
@@ -78,14 +116,14 @@ export default function EmployeeRoutesTable({ employee }: EmployeeRoutesTablePro
 								</tr>
 							</thead>
 							<tbody>
-								{(employee?.routes || []).map((route) => {
+								{(currentEmployee?.routes || []).map((route) => {
 									return (
 										<tr key={route.id}>
-											<td>{route.id}</td>
-											<td>{employee?.name} {employee?.lastName}</td>
+											<td>N° {route.order?.id}</td>
+											<td>{currentEmployee?.name} {currentEmployee?.lastName}</td>
 											<td>{new Date(route.updatedAt).toISOString().split('T')[0]}</td>
 											<td>
-												<button>
+												<button onClick={handleSeeRoute}>
 													Ver recorrido
 												</button>
 											</td>
@@ -96,17 +134,17 @@ export default function EmployeeRoutesTable({ employee }: EmployeeRoutesTablePro
 						</table>
 					</div>
 					<div className={styles.mapContainer}>
-						{isLoaded ? (
-							<GoogleMapComponent
-								mapContainerStyle={{ width: '100%', height: '100%', borderRadius: '.8rem' }}
-								center={{ lat: -34.603722, lng: -58.381592 }}
-								zoom={15}
-							/>
-						) : (
-							<div style={{ width: '100%', height: '100%', background: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-								Loading map...
-							</div>
-						)}
+						<GoogleMaps
+							styles={{ width: '100%', height: '100%', borderRadius: '.8rem' }}
+							routes={routes}
+							markers={
+								[
+									...markers, 
+									{ lat: warehouseOrigin.lat, long: warehouseOrigin.lng, id: 'warehouse1' },
+									{ lat: warehouseOrigin.lat, long: warehouseOrigin.lng, id: 'warehouse2' },
+								] as MarkerProps[]
+							}
+						/>
 					</div>
         </main>
       </div>

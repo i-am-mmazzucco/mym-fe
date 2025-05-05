@@ -106,8 +106,8 @@ export default function EmployeesTable() {
                     <td>{employee.dni}</td>
                     <td>{employee.phone}</td>
                     <td>
-                      <button className={employee.route ? styles.buttonAssigned : styles.buttonNotAssigned}>
-                        {employee.route ? 'Asignada' : 'Asignar ruta'}
+                      <button className={employee.routes?.length ? styles.buttonAssigned : styles.buttonNotAssigned}>
+                        {employee.routes?.length ? 'Asignada' : 'Asignar ruta'}
                       </button>
                     </td>
                   </tr>

@@ -87,7 +87,7 @@ export default function HomeOrderTable() {
 								<tr key={order.id}>
 									<td>{order.client.name} {order.client.lastName}</td>
 									<td>{new Date(order.createdAt).toISOString().split('T')[0]}</td>
-									<td>N{order.id}</td>
+									<td>N°{order.id}</td>
 									<td>
 										<p className={order.statusDelivery === 'delivered' ? styles.buttonAssigned : styles.buttonNotAssigned}>
 											{order.statusDelivery === 'delivered' ? 'Entregado' : 'Pendiente'}

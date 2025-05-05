@@ -7,14 +7,13 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface OrderProps {
-	params: {
-		id: string;
-	}
+	params: Promise<{ id: string }>
 }
 
-export default function Order({ params }: OrderProps) {
+export default function Order(props: OrderProps) {
 	const router = useRouter();
 	const [order, setOrder] = React.useState<IOrder | null>(null);
+	const params = React.use(props.params);
 
 	useEffect(() => {
 		(async () => {
@@ -22,7 +21,7 @@ export default function Order({ params }: OrderProps) {
 			const order = await response.json();
 			setOrder(order);
 		})();
-	}, []);
+	}, [params.id]);
 
   return (		
 		<div className={styles.orderContainer}>

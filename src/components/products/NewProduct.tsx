@@ -12,12 +12,12 @@ export default function NewProduct({ setIsNewProductModalOpen }: NewProductProps
 		e.preventDefault();
     const formData = {
 			name: (e.currentTarget.elements.namedItem('name') as HTMLInputElement).value,
-			price: (e.currentTarget.elements.namedItem('price') as HTMLInputElement).value,
+			price: +(e.currentTarget.elements.namedItem('price') as HTMLInputElement).value,
 			description: (e.currentTarget.elements.namedItem('description') as HTMLInputElement).value,
 			category: (e.currentTarget.elements.namedItem('category') as HTMLInputElement).value,
 			lot: {
 				unitOfMeasure: (e.currentTarget.elements.namedItem('unitOfMeasure') as HTMLInputElement).value,
-				quantity: (e.currentTarget.elements.namedItem('quantity') as HTMLInputElement).value
+				quantity: +(e.currentTarget.elements.namedItem('quantity') as HTMLInputElement).value
 			}
 		};
 
@@ -67,7 +67,13 @@ export default function NewProduct({ setIsNewProductModalOpen }: NewProductProps
 						<div>
 							<label>
 								<span>Unidad de medida</span>
-								<input type="text" name='unitOfMeasure' required />
+								<select name="unitOfMeasure" required id="unitOfMeasure" defaultValue={'kg'}>
+									<option value={'kg'}>KG</option>
+									<option value={'g'}>G</option>
+									<option value={'ml'}>ML</option>
+									<option value={'l'}>L</option>
+									<option value={'un'}>UN</option>
+								</select>
 							</label>
 							<label>
 								<span>Cantidad</span>

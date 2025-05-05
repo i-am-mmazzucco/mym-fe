@@ -1,3 +1,18 @@
+import { IOrder } from "./orders.interface";
+
+export interface ICoordinates {
+	type: string;
+	coordinates: [number, number];
+}
+
+export interface IRoute {
+	id: number;
+	coordinates: ICoordinates;
+	createdAt: string;
+	updatedAt: string;
+	order?: IOrder;
+}
+
 export interface IEmployee {
 	id: number;
 	name: string;
@@ -10,18 +25,5 @@ export interface IEmployee {
 	createdAt: string;
 	updatedAt: string;
 	image?: string;
-	route?: {
-		id: number;
-		latitude: string;
-		longitude: string;
-		createdAt: string;
-		updatedAt: string;
-	};
-	routes?: {
-		id: number;
-		latitude: string;
-		longitude: string;
-		createdAt: string;
-		updatedAt: string;
-	}[];
+	routes?: IRoute[];
 }

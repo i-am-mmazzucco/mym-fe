@@ -6,9 +6,10 @@ import styles from '@/styles/pages/employees/Employee.module.scss';
 import EmployeeRoutesTable from "@/components/employees/EmployeeRoutesTable";
 import { useRouter } from "next/navigation";
 
-export default function EmployeePage({ params }: { params: { id: string } }) {
+export default function EmployeePage(props: { params: Promise<{ id: string }> }) {
 	const router = useRouter();
 	const [employee, setEmployee] = React.useState<IEmployee | null>(null);
+	const params = React.use(props.params);
 
 	useEffect(() => {
 		(async () => {
@@ -16,7 +17,7 @@ export default function EmployeePage({ params }: { params: { id: string } }) {
 			const employee = await response.json();
 			setEmployee(employee);
 		})();
-	}, []);
+	}, [params.id]);
 
   return (
     <div className={styles.employeeContainer}>

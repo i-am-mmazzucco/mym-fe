@@ -9,7 +9,7 @@ import NewProduct from './NewProduct';
 const url = process.env.beUrl as string;
 
 export default function ProductsTable() {
-  const { products, setProducts } = React.useContext(ProductsContext);
+  const { products } = React.useContext(ProductsContext);
   const [isNewProductModalOpen, setIsNewProductModalOpen] = React.useState(false);
   const [search, setSearch] = React.useState('');
   const [productsFiltered, setProductsFiltered] = React.useState(products);
@@ -31,7 +31,6 @@ export default function ProductsTable() {
           }
         });
         const data = await response.json();
-        setProducts(data); 
         setProductsFiltered(data);
       })()
     }

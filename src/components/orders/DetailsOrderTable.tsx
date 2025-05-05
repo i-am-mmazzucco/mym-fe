@@ -2,8 +2,10 @@
 
 import styles from '@/styles/components/orders/DetailsOrderTable.module.scss';
 import { IOrder } from '@/interfaces/orders.interface';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LotDetails from './LotDetails';
+import DeliverOrder from './DeliverOrder';
+import EditOrder from './EditOrder';
 
 interface OrderTableProps {
 	order: IOrder | null;
@@ -11,6 +13,8 @@ interface OrderTableProps {
 
 export default function OrderTable({ order }: OrderTableProps) {
   const [isLotOpen, setIsLotOpen] = useState(false);
+  const [isDeliverOrderModalOpen, setIsDeliverOrderModalOpen] = useState(false);
+  const [isEditOrderModalOpen, setIsEditOrderModalOpen] = useState(false);
   const [itemId, setItemId] = useState<number | null>(null);
 
   const handleLotOpen = (id: number) => {
@@ -18,15 +22,43 @@ export default function OrderTable({ order }: OrderTableProps) {
     setItemId(id);
   }
 
+  const handleEditOrder = () => {
+    setIsEditOrderModalOpen(true);
+  }
+
+  const handleDeliverOrder = () => {
+    setIsDeliverOrderModalOpen(true);
+  }
+
+  useEffect(() => {
+    if (isDeliverOrderModalOpen || isEditOrderModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isDeliverOrderModalOpen, isEditOrderModalOpen]);
+
 	return (
     <>
       {isLotOpen && <LotDetails order={order} setIsLotOpen={setIsLotOpen} itemId={itemId}/>}
+      {isDeliverOrderModalOpen && <DeliverOrder order={order} setIsDeliverOrderModalOpen={setIsDeliverOrderModalOpen} />}
+      {isEditOrderModalOpen && <EditOrder order={order} setIsEditOrderModalOpen={setIsEditOrderModalOpen} />}
       <div className={styles.orderTableContainer}>
         <header>
-          <p>Pedido N{order?.id}</p>
-          <div>
-            <p>Cliente</p>
-            <p>{order?.client.name} {order?.client.lastName}</p>
+          <div className={styles.topHeader}>
+            <p>Pedido N°{order?.id}</p>
+            <div>
+              <p>Cliente</p>
+              <p>{order?.client.name} {order?.client.lastName}</p>
+            </div>
+          </div>
+          <div className={styles.bottomHeader}>
+            <button onClick={handleEditOrder}>
+              <p>Editar</p>
+            </button>
+            <button onClick={handleDeliverOrder}>
+              <p>Entregar pedido</p>
+            </button>
           </div>
         </header>
         <main className={styles.order}>

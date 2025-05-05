@@ -58,7 +58,7 @@ export default function ClientOrders({ orders }: ClientOrdersProps) {
 						{orders.map((order => {
 							return (
 								<tr key={order.id}>
-									<td>N{order.id}</td>
+									<td>N°{order.id}</td>
 									<td>{new Date(order.createdAt).toISOString().split('T')[0]}</td>
 									<td>${order.totalAmountPaid || 0}</td>
 									<td>

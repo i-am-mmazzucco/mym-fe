@@ -24,7 +24,16 @@ export interface IOrder {
     updatedAt: string,
     client: IClient,
     employeeAssigned: IEmployee,
-    items: IItem[]
+    items: IItem[],
+    route?: {
+        id: number,
+        coordinates: {
+          type: string,
+          coordinates: [number, number]
+        },
+        createdAt: string,
+        updatedAt: string
+    }
 }
 
 export interface ISalesHistory {

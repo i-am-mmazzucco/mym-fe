@@ -7,11 +7,12 @@ import ClientOrders from "@/components/clients/ClientOrders";
 import { IOrder } from "@/interfaces/orders.interface";
 import { useRouter } from "next/navigation";
 
-const ClientDetailPage = ({ params }: { params: { id: string } }) => {
+const ClientDetailPage = (props: { params: Promise<{ id: string }> }) => {
   const router = useRouter();
 	const [client, setClient] = React.useState<IClient | null>(null);
   const [orders, setOrders] = React.useState<IOrder[]>([]);
-
+	const params = React.use(props.params);
+  
 	useEffect(() => {
 		(async () => {
 			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/clients/${params.id}`);
@@ -22,7 +23,7 @@ const ClientDetailPage = ({ params }: { params: { id: string } }) => {
 			const orders = await responseOrders.json();
 			setOrders(orders);
 		})();
-	}, []);
+	}, [params.id]);
 
   return (
     <div className={styles.clientContainer}>

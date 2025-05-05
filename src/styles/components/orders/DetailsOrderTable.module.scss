@@ -12,40 +12,71 @@
 
 	header {
 		display: flex;
-		flex-direction: column;
 		justify-content: space-between;
 		width: 100%;
 
-		p {
-			color: var(--c-black-100);
-			font-size: 2rem;
-			font-weight: 700;
-			line-height: 2.25rem;
-		}
-
-		div {
+		.topHeader {
 			display: flex;
-			gap: 1.2rem;
-		
+			flex-direction: column;
+			justify-content: space-between;
+			width: 100%;
+	
 			p {
-				margin: 0;
-				color: var(--c-black-200);
-				font-size: 1.8rem;
-				font-weight: 500;
-				padding: .6rem;
-
-				&:last-child {
-					display: flex;
-					padding: .6rem;
-					justify-content: center;
-					align-items: center;
-					border-radius: .8rem;
-					background: var(--c-white-100);
+				color: var(--c-black-100);
+				font-size: 2rem;
+				font-weight: 700;
+				line-height: 2.25rem;
+			}
+	
+			div {
+				display: flex;
+				gap: 1.2rem;
+			
+				p {
+					margin: 0;
 					color: var(--c-black-200);
-					text-align: center;
 					font-size: 1.8rem;
 					font-weight: 500;
-					width: fit-content;
+					padding: .6rem;
+	
+					&:last-child {
+						display: flex;
+						padding: .6rem;
+						justify-content: center;
+						align-items: center;
+						border-radius: .8rem;
+						background: var(--c-white-100);
+						color: var(--c-black-200);
+						text-align: center;
+						font-size: 1.8rem;
+						font-weight: 500;
+						width: fit-content;
+					}
+				}
+			}
+		}
+
+		.bottomHeader {
+			display: flex;
+			gap: 1.2rem;
+
+			button {
+				display: flex;
+				gap: .5rem;
+				padding: 1.4rem;
+				justify-content: center;
+				align-items: center;
+				gap: .5rem;
+				border-radius: .8rem;
+				background: var(--c-black);
+				height: 4.4rem;
+				width: 16rem;
+				cursor: pointer;
+	
+				p {
+					color: var(--c-white);
+					font-size: 1.4rem;
+					font-weight: 600;
 				}
 			}
 		}

@@ -14,7 +14,7 @@ export default function HomeSalesTable() {
   useEffect(() => {
     (async () => {
 			let url = `${process.env.NEXT_PUBLIC_BE_URL}/orders/sales`;
-			console.log(startDate, endDate)
+
 			if (startDate && endDate) {
 				url += `?startDate=${startDate}&endDate=${endDate}`;
 			}
