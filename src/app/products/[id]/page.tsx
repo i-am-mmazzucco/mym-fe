@@ -23,7 +23,13 @@ export default function Product(props: ProductProps) {
 
 	useEffect(() => {
 		(async () => {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/products/${params.id}`);
+			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/products/${params.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },	
+      });
 			const product = await response.json();
 			setProduct(product);
 		})();

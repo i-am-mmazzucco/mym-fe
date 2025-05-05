@@ -27,7 +27,8 @@ export default function ProductsTable() {
         const response = await fetch(`${url}/products`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
         });
         const data = await response.json();
@@ -47,7 +48,8 @@ export default function ProductsTable() {
         const response = await fetch(`${url}/products?q=${search}`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
         });
         const data = await response.json();

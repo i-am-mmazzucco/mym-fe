@@ -19,7 +19,13 @@ export default function HomeSalesTable() {
 				url += `?startDate=${startDate}&endDate=${endDate}`;
 			}
 
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },	
+      });
       const data = await response.json();
 
       setSalesData(data);

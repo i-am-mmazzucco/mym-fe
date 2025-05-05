@@ -27,7 +27,8 @@ export default function EmployeesTable() {
         const response = await fetch(`${url}/employees`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
         });
         const data = await response.json();
@@ -48,7 +49,8 @@ export default function EmployeesTable() {
         const response = await fetch(`${url}/employees?q=${search}`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
         });
         const data = await response.json();
@@ -99,7 +101,7 @@ export default function EmployeesTable() {
               </tr>
             </thead>
             <tbody>
-              {employeesFiltered.map((employee => {
+              {employeesFiltered?.length ? employeesFiltered.map((employee => {
                 return (
                   <tr key={employee.id} onClick={() => redirect(`/employees/${employee.id}`)}>
                     <td>{employee.name}</td>
@@ -112,7 +114,7 @@ export default function EmployeesTable() {
                     </td>
                   </tr>
                 )
-              }))}
+              })) : <tr><td colSpan={4}>No hay empleados</td></tr>}
             </tbody>
           </table>
         </main>

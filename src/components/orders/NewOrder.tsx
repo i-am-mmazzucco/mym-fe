@@ -70,7 +70,8 @@ export default function NewOrder({ setIsNewOrderModalOpen }: NewOrderProps) {
 		const response = await fetch(`${url}/orders`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${sessionStorage.getItem('token')}`
 			},	
 			body: JSON.stringify(formData)
 		});

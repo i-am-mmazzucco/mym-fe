@@ -13,7 +13,13 @@ export default function EmployeePage(props: { params: Promise<{ id: string }> })
 
 	useEffect(() => {
 		(async () => {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/employees/${params.id}`);
+			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/employees/${params.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },	
+      });
 			const employee = await response.json();
 			setEmployee(employee);
 		})();

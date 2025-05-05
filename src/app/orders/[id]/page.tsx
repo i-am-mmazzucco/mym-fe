@@ -17,7 +17,13 @@ export default function Order(props: OrderProps) {
 
 	useEffect(() => {
 		(async () => {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/orders/${params.id}`);
+			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/orders/${params.id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+        },	
+      });
 			const order = await response.json();
 			setOrder(order);
 		})();

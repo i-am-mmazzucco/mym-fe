@@ -24,7 +24,8 @@ export default function NewProduct({ setIsNewProductModalOpen }: NewProductProps
 		const response = await fetch(`${url}/products`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${sessionStorage.getItem('token')}`
 			},	
 			body: JSON.stringify(formData)
 		});

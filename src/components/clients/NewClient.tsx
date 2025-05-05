@@ -22,7 +22,8 @@ export default function NewClient({ setIsNewClientModalOpen }: NewClientProps) {
 		const response = await fetch(`${url}/clients`, {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${sessionStorage.getItem('token')}`
 			},	
 			body: JSON.stringify(formData)
 		});

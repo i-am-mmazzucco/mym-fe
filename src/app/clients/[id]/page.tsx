@@ -15,13 +15,29 @@ const ClientDetailPage = (props: { params: Promise<{ id: string }> }) => {
   
 	useEffect(() => {
 		(async () => {
-			const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/clients/${params.id}`);
-			const client = await response.json();
-			setClient(client);
-
-			const responseOrders = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/orders?clientId=${params.id}`);
-			const orders = await responseOrders.json();
-			setOrders(orders);
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/clients/${params.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },	
+        });
+        const client = await response.json();
+        setClient(client);
+  
+        const responseOrders = await fetch(`${process.env.NEXT_PUBLIC_BE_URL}/orders?clientId=${params.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          },	
+        });
+        const orders = await responseOrders.json();
+        setOrders(orders);
+      } catch (error) {
+        alert('Error al obtener los datos del cliente');
+      }
 		})();
 	}, [params.id]);
 

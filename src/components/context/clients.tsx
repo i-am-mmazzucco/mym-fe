@@ -22,7 +22,8 @@ export const ClientsProvider = ({
       const response = await fetch(`${url}/clients`, {
         method: 'GET',
         headers:{
-           'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('token')}`
         }
       });
       const data = await response.json();

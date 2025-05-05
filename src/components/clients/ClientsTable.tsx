@@ -27,7 +27,8 @@ export default function ClientsTable() {
         const response = await fetch(`${url}/clients`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
         });
         const data = await response.json();
@@ -48,7 +49,8 @@ export default function ClientsTable() {
         const response = await fetch(`${url}/clients?q=${search}`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
         });
         const data = await response.json();

@@ -25,7 +25,8 @@ export default function HomeOrderTable() {
         const response = await fetch(`${url}/orders?q=${search}`, {
           method: 'GET',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
           }
         });
         const data = await response.json();

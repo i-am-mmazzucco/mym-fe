@@ -65,7 +65,8 @@ export default function EditOrder({ setIsEditOrderModalOpen, order }: EditOrderP
 		const response = await fetch(`${url}/orders/${order?.id}`, {
 			method: 'PUT',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${sessionStorage.getItem('token')}`
 			},	
 			body: JSON.stringify(formData)
 		});

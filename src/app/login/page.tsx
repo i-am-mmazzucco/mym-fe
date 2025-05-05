@@ -2,12 +2,31 @@
 import styles from '@/styles/pages/login/Login.module.scss';
 import { useAuth } from '@/components/context/auth';
 
+const url = process.env.beUrl as string;
+
 export default function Login() {
 	const auth = useAuth();
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		auth.login('123456');
+		const email = (e.target as HTMLFormElement).email.value;
+		const password = (e.target as HTMLFormElement).password.value;
+
+		const response = await fetch(`${url}/auth/login`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},	
+			body: JSON.stringify({ email, password })
+		});
+
+		const data = await response.json();
+
+		if (data.statusCode) {
+			alert('Error al iniciar sesión');
+		} else {
+			auth.login(data.access_token);
+		}
 	}
 
   return (
@@ -42,11 +61,13 @@ export default function Login() {
 						<input
 							type="email"
 							placeholder="m&m@gmail.com"
+							name="email"
 							className={styles.input}
 						/>
 						<input
 							type="password"
 							placeholder="********"
+							name="password"
 							className={styles.input}
 						/>
 						<button>

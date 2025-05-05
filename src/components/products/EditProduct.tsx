@@ -22,7 +22,8 @@ export default function EditProduct({ setIsEditProductModalOpen, product }: Edit
 		const response = await fetch(`${url}/products/${product?.id}`, {
 			method: 'PATCH',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${sessionStorage.getItem('token')}`
 			},	
 			body: JSON.stringify(formData)
 		});

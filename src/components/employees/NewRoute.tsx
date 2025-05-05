@@ -59,7 +59,8 @@ export default function NewRoute({ setIsNewRouteAssigningForEmployeeModalOpen, e
 		const response = await fetch(`${url}/employees/${selectedEmployee?.id}`, {
 			method: 'PATCH',
 			headers: {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${sessionStorage.getItem('token')}`
 			},	
 			body: JSON.stringify(formData)
 		});
