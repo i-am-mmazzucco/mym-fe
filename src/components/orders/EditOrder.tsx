@@ -137,7 +137,7 @@ export default function EditOrder({ setIsEditOrderModalOpen, order }: EditOrderP
 							+ Agregar otro producto
 						</button>
 					</div>
-					<button type="submit">Crear producto</button>
+					<button type="submit">Editar pedido</button>
 				</form>
 			</div>
 		</div>

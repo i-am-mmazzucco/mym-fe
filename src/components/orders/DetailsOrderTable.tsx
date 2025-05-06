@@ -11,7 +11,10 @@ interface OrderTableProps {
 	order: IOrder | null;
 }
 
-export default function OrderTable({ order }: OrderTableProps) {
+const url = process.env.beUrl as string;
+
+export default function OrderTable({ order: initialOrder }: OrderTableProps) {
+  const [order, setOrder] = useState<IOrder | null>(initialOrder);
   const [isLotOpen, setIsLotOpen] = useState(false);
   const [isDeliverOrderModalOpen, setIsDeliverOrderModalOpen] = useState(false);
   const [isEditOrderModalOpen, setIsEditOrderModalOpen] = useState(false);
@@ -35,8 +38,19 @@ export default function OrderTable({ order }: OrderTableProps) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
+      (async () => {
+        const response = await fetch(`${url}/orders/${order?.id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+          }
+        });
+        const data = await response.json();
+        setOrder(data);
+      })()
     }
-  }, [isDeliverOrderModalOpen, isEditOrderModalOpen]);
+  }, [isDeliverOrderModalOpen, isEditOrderModalOpen, order?.id]);
 
 	return (
     <>

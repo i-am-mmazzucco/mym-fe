@@ -46,18 +46,21 @@ export default function DeliverOrder({ setIsDeliverOrderModalOpen, order }: Deli
 		
 		const formData = {
 			address: (e.currentTarget.elements.namedItem('address') as HTMLInputElement).value,
-			dateDelivery: moment().format('YYYY-MM-DD'),
+			dateDelivery: moment(),
 			statusDelivery: (e.currentTarget.elements.namedItem('statusDelivery') as HTMLSelectElement).value,
 			statusPayment: (e.currentTarget.elements.namedItem('statusPayment') as HTMLSelectElement).value,
-			totalAmountPaid: (e.currentTarget.elements.namedItem('totalAmountPaid') as HTMLInputElement).value,
+			typePayment: (e.currentTarget.elements.namedItem('typePayment') as HTMLSelectElement).value,
+			totalAmountPaid: +(e.currentTarget.elements.namedItem('totalAmountPaid') as HTMLInputElement).value,
 			items: orderItems.map(item => ({
-				productId: item.productId,
+				product: {
+					id: item.productId
+				},
 				quantity: item.quantity
 			}))
 		};
 
-		const response = await fetch(`${url}/orders`, {
-			method: 'POST',
+		const response = await fetch(`${url}/orders/${order?.id}`, {
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
 				'Authorization': `Bearer ${sessionStorage.getItem('token')}`
@@ -80,7 +83,7 @@ export default function DeliverOrder({ setIsDeliverOrderModalOpen, order }: Deli
 				<button className={styles.closeButton} onClick={() => setIsDeliverOrderModalOpen(false)}>
 					<p>X</p>
 				</button>
-				<h1>Ingresa los datos del nuevo producto</h1>
+				<h1>Ingresa los datos de la entrega</h1>
 				<form onSubmit={handleSubmit}>
 					<label>
 						<span>Dirección</span>
@@ -100,6 +103,14 @@ export default function DeliverOrder({ setIsDeliverOrderModalOpen, order }: Deli
 							<option value='pending'>Pendiente</option>
 							<option value='paid'>Pagado</option>
 							<option value='failed'>Fallado</option>
+						</select>
+					</label>
+					<label>
+						<span>Tipo de pago</span>
+						<select name='typePayment' required defaultValue='cash'>
+							<option value='cash'>Efectivo</option>
+							<option value='credit_card'>Tarjeta de crédito</option>
+							<option value='debit_card'>Tarjeta de débito</option>
 						</select>
 					</label>
 					<label>
@@ -151,7 +162,7 @@ export default function DeliverOrder({ setIsDeliverOrderModalOpen, order }: Deli
 							+ Agregar otro producto
 						</button>
 					</div>
-					<button type="submit">Crear producto</button>
+					<button type="submit">Entregar pedido</button>
 				</form>
 			</div>
 		</div>
