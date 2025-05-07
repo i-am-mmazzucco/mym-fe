@@ -78,8 +78,8 @@ export default function Product(props: ProductProps) {
 							<div className={styles.productDetailsHeader}>
 								<p className={styles.productDetailsHeaderTitle}>
 									<h1>{product?.name}</h1>
-									<span className={product?.isActive ? styles.yes : styles.no}>
-										{product?.isActive ? 'ACTIVO' : 'INACTIVO'}
+									<span className={product?.lot?.quantity ? styles.yes : styles.no}>
+										{product?.lot?.quantity ? 'ACTIVO' : 'INACTIVO'}
 									</span>
 								</p>
 								<p className={styles.productDetailsHeaderDescription}>{product?.description}</p>

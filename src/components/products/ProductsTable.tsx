@@ -119,8 +119,8 @@ export default function ProductsTable() {
                     <td>{product.lot.quantity}</td>
                     <td>{product.lot.lotNumber}</td>
                     <td>
-                      <p className={product.isActive ? styles.yes : styles.no}>
-                        {product.isActive ? 'SI' : 'NO'}
+                      <p className={product.lot.quantity ? styles.yes : styles.no}>
+                        {product.lot.quantity ? 'SI' : 'NO'}
                       </p>
                     </td>
                   </tr>

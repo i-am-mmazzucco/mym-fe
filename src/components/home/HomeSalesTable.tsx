@@ -8,10 +8,10 @@ import React, { useEffect } from 'react';
 export default function HomeSalesTable() {
 	const [salesData, setSalesData] = React.useState<ISalesHistory[]>([]);
 	const [startDate, setStartDate] = React.useState<string>(moment().subtract(30, 'days').format('YYYY-MM-DD'));
-	const [endDate, setEndDate] = React.useState<string>(moment().format('YYYY-MM-DD'));
+	const [endDate, setEndDate] = React.useState<string>(moment().add(2, 'days').format('YYYY-MM-DD'));
 	const [filterOption, setFilterOption] = React.useState<string>('month');
 
-  useEffect(() => {
+	useEffect(() => {
     (async () => {
 			let url = `${process.env.NEXT_PUBLIC_BE_URL}/orders/sales`;
 
@@ -43,10 +43,8 @@ export default function HomeSalesTable() {
 			setStartDate(moment().subtract(7, 'days').format('YYYY-MM-DD'))
 		}
 		if (value === 'day') {
-			setStartDate(moment().subtract(1, 'days').format('YYYY-MM-DD'))
+			setStartDate(moment().subtract(2, 'days').format('YYYY-MM-DD'))
 		}
-
-		setEndDate(moment().format('YYYY-MM-DD'))
 	};
 
 	return (

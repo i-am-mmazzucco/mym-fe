@@ -11,10 +11,7 @@ interface OrderTableProps {
 	order: IOrder | null;
 }
 
-const url = process.env.beUrl as string;
-
-export default function OrderTable({ order: initialOrder }: OrderTableProps) {
-  const [order, setOrder] = useState<IOrder | null>(initialOrder);
+export default function OrderTable({ order }: OrderTableProps) {
   const [isLotOpen, setIsLotOpen] = useState(false);
   const [isDeliverOrderModalOpen, setIsDeliverOrderModalOpen] = useState(false);
   const [isEditOrderModalOpen, setIsEditOrderModalOpen] = useState(false);
@@ -38,19 +35,8 @@ export default function OrderTable({ order: initialOrder }: OrderTableProps) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
-      (async () => {
-        const response = await fetch(`${url}/orders/${order?.id}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
-          }
-        });
-        const data = await response.json();
-        setOrder(data);
-      })()
     }
-  }, [isDeliverOrderModalOpen, isEditOrderModalOpen, order?.id]);
+  }, [isDeliverOrderModalOpen, isEditOrderModalOpen]);
 
 	return (
     <>
@@ -62,8 +48,14 @@ export default function OrderTable({ order: initialOrder }: OrderTableProps) {
           <div className={styles.topHeader}>
             <p>Pedido N°{order?.id}</p>
             <div>
-              <p>Cliente</p>
-              <p>{order?.client.name} {order?.client.lastName}</p>
+              <div>
+                <p>Cliente</p>
+                <p>{order?.client.name} {order?.client.lastName}</p>
+              </div>
+              <div>
+                <p>Total</p>
+                <p>${order?.totalAmount}</p>
+              </div>
             </div>
           </div>
           <div className={styles.bottomHeader}>

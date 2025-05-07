@@ -4,7 +4,8 @@ import styles from '@/styles/components/orders/NewOrder.module.scss';
 import { ClientsContext } from '../context/clients';
 import { EmployeesContext } from '../context/employees';
 import { ProductsContext } from '../context/product';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { IClient } from '@/interfaces/clients.interface';
 
 interface NewOrderProps {
 	setIsNewOrderModalOpen: (isOpen: boolean) => void;
@@ -22,6 +23,7 @@ export default function NewOrder({ setIsNewOrderModalOpen }: NewOrderProps) {
 	const { employees } = React.useContext(EmployeesContext);
 	const { products } = React.useContext(ProductsContext);
 	const [orderItems, setOrderItems] = useState<OrderItem[]>([{ productId: 0, quantity: 1 }]);
+	const [client, setClient] = useState<IClient | undefined>(clients[0]);
 
 	const addProductItem = () => {
 		setOrderItems([...orderItems, { productId: 0, quantity: 1 }]);
@@ -85,6 +87,13 @@ export default function NewOrder({ setIsNewOrderModalOpen }: NewOrderProps) {
 		}
 	}
 
+	const handleClientChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		setClient(clients.find(c => c.id === Number(e.target.value)));
+	}
+
+	useEffect(() => {
+	}, [client]);
+
   return (
 		<div className={styles.newOrderContainer}>
 			<div className={styles.newOrderBox}>
@@ -95,7 +104,7 @@ export default function NewOrder({ setIsNewOrderModalOpen }: NewOrderProps) {
 				<form onSubmit={handleSubmit}>
 					<label>
 						<span>Cliente</span>
-						<select name='client' required>
+						<select name='client' required onChange={handleClientChange}>
 							{clients.map((client) => (
 								<option key={client.id} value={client.id}>{client.name}</option>
 							))}
@@ -103,7 +112,7 @@ export default function NewOrder({ setIsNewOrderModalOpen }: NewOrderProps) {
 					</label>
 					<label>
 						<span>Empleado asignado</span>
-						<select name='employeeAssigned' required>
+						<select name='employeeAssigned' required defaultValue={employees[0].id}>
 							{employees.map(employee => (
 								<option key={employee.id} value={employee.id}>{employee.name}</option>
 							))}
@@ -111,7 +120,7 @@ export default function NewOrder({ setIsNewOrderModalOpen }: NewOrderProps) {
 					</label>
 					<label>
 						<span>Dirección</span>
-						<input type="text" name='address' required />
+						<input type="text" name='address' required value={client?.address} disabled/>
 					</label>
 					<label>
 						<span>Estado de entrega</span>
@@ -140,7 +149,7 @@ export default function NewOrder({ setIsNewOrderModalOpen }: NewOrderProps) {
 										required
 									>
 										<option value={0}>Selecciona un producto</option>
-										{products.map(product => (
+										{products.filter(product => product.lot.quantity).map(product => (
 											<option key={product.id} value={product.id}>{product.name}</option>
 										))}
 									</select>
